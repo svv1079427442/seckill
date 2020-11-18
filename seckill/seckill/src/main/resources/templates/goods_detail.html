@@ -26,15 +26,15 @@
         </tr>
         <tr>
             <td>商品图片</td>
-            <td colspan="3"><img th:src="@{${goods.goodsImg}}" width="80" height="60"></img></td>
+            <td colspan="3"><img th:src="@{${goods.goodsImg}}" width="70" height="100"></img></td>
         </tr>
         <tr>
             <td>秒杀开始时间</td>
             <td th:text="${#dates.format(goods.startDate,'yyyy-MM-dd HH:mm:ss')}"></td>
-            <td id="miaoshaTip">
+            <td id="seckillTip">
                 <!-- 先取得这个时间 -->
-                <input type="hidden" id="remailSeconds"></input>
-                <span th:if="seckillStatus eq 0">秒杀还未开始，倒计时:<span id="countDown" ></span>秒</span>
+                <input type="hidden" id="remainSeconds" th:value="${remainSeconds}"></input>
+                <span th:if="seckillStatus eq 0">距离秒杀开始还剩:<span id="countDown" th:text="${remainSeconds}"></span>秒</span>
                 <span th:if="seckillStatus eq 1">秒杀正在进行</span>
                 <span th:if="seckillStatus eq 2">秒杀已经结束</span>
             </td>
@@ -61,4 +61,41 @@
     </table>
 </div>
 </body>
+<script>
+    //初始化时开始
+    $(function () {
+        countDown();
+    });
+
+    function countDown() {//倒计时
+        var remainSeconds=$("#remainSeconds").val();//
+        var timeout;
+        if(remainSeconds>0){//秒杀未开始
+            $("#buyButton").attr("disabled",true);//未开始按钮不可以点
+            timeout = setTimeout(function () {
+                $("#countDown").text(remainSeconds -1);//倒计时减一
+                $("#remainSeconds").val(remainSeconds-1);
+                countDown();
+            },1000);//1秒后改掉当前时间
+        }else if(remainSeconds == 0){//秒杀进行中
+            $("#buyButton").attr("disabled",false);//秒杀开始，可以点按钮
+            if(timeout){
+                clearTimeout(timeout);
+            }
+            $("#seckillTip").html("秒杀进行中");
+        }else {//秒杀已结束
+            $("#buyButton").attr("disabled",true);//不能点
+            $("#seckillTip").html("秒杀已结束");
+        }
+    }
+
+
+
+
+
+
+
+
+
+</script>
 </html>
