@@ -34,9 +34,9 @@
             <td id="seckillTip">
                 <!-- 先取得这个时间 -->
                 <input type="hidden" id="remainSeconds" th:value="${remainSeconds}"></input>
-                <span th:if="seckillStatus eq 0">距离秒杀开始还剩:<span id="countDown" th:text="${remainSeconds}"></span>秒</span>
-                <span th:if="seckillStatus eq 1">秒杀正在进行</span>
-                <span th:if="seckillStatus eq 2">秒杀已经结束</span>
+                <span th:if="${seckillStatus eq 0}">距离秒杀开始还剩:<span id="countDown" th:text="${remainSeconds}"></span>秒</span>
+                <span th:if="${seckillStatus eq 1}">秒杀正在进行</span>
+                <span th:if="${seckillStatus eq 2}">秒杀已经结束</span>
             </td>
             <td>
                 <form id="seckillForm" method="post" action="">
@@ -88,14 +88,5 @@
             $("#seckillTip").html("秒杀已结束");
         }
     }
-
-
-
-
-
-
-
-
-
 </script>
 </html>
