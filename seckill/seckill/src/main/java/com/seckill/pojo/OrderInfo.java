@@ -14,7 +14,7 @@ public class OrderInfo {
     private Integer orderStatus;
     private Date createDate;
     private Date payDate;
-
+    private int status;
     public Long getId() {
         return id;
     }
@@ -101,5 +101,30 @@ public class OrderInfo {
 
     public void setPayDate(Date payDate) {
         this.payDate = payDate;
+    }
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderInfo{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", goodsId=" + goodsId +
+                ", deliveryAddrId=" + deliveryAddrId +
+                ", goodsName='" + goodsName + '\'' +
+                ", goodsCount=" + goodsCount +
+                ", goodsPrice=" + goodsPrice +
+                ", orderChannel=" + orderChannel +
+                ", orderStatus=" + orderStatus +
+                ", createDate=" + createDate +
+                ", payDate=" + payDate +
+                ", status=" + status +
+                '}';
     }
 }

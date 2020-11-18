@@ -5,7 +5,6 @@ import com.seckill.redis.RedisService;
 import com.seckill.service.GoodsService;
 import com.seckill.service.SeckillUserService;
 import com.seckill.vo.GoodsVo;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,7 +60,7 @@ public class GoodsController {
 
         //
         int seckillStatus=0;
-        int remainSeconds=0;//秒杀倒计时
+        int remainSeconds=0;//秒杀倒计时 start-now = remaintime  还剩多长时间
         long startAt = goods.getStartDate().getTime();
         long endAt = goods.getEndDate().getTime();
         long now = System.currentTimeMillis();
