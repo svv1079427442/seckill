@@ -26,15 +26,20 @@ public class OrderService {
         orderInfo.setDeliveryAddrId(0L);
         orderInfo.setGoodsCount(1);
         orderInfo.setGoodsName(goods.getGoodsName());
+        orderInfo.setGoodsId(goods.getId());
         orderInfo.setGoodsPrice(goods.getSeckillPrice());//获取秒杀价格
         orderInfo.setOrderChannel(1);
         orderInfo.setStatus(0);//0代表未支付
         orderInfo.setUserId(user.getId());
+
         long orderId  = orderDao.insert(orderInfo);
+        //查表当前订单编号
+
         //设置秒杀order表
+
         SeckillOrder seckillOrder=new SeckillOrder();
         seckillOrder.setGoodsId(goods.getId());
-        seckillOrder.setOrderId(orderId);
+        seckillOrder.setOrderId(orderInfo.getId());
         seckillOrder.setUserId(user.getId());
         orderDao.insertSeckillOrder(seckillOrder);
 

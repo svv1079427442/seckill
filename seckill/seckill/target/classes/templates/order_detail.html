@@ -36,12 +36,12 @@
             <tr>
                 <td>订单状态</td>
                 <td><!-- 根据数值，做显示判断 -->
-                    <span th:if="${orderInfo.orderStatus eq 0}">未支付</span>
-                    <span th:if="${orderInfo.orderStatus eq 1}">代发货</span>
-                    <span th:if="${orderInfo.orderStatus eq 2}">已发货</span>
-                    <span th:if="${orderInfo.orderStatus == 3}">已收货</span>
-                    <span th:if="${orderInfo.orderStatus == 4}">已退款</span>
-                    <span th:if="${orderInfo.orderStatus == 5}">已完成</span>
+                    <span th:if="${orderInfo.status eq 0}">未支付</span>
+                    <span th:if="${orderInfo.status eq 1}">代发货</span>
+                    <span th:if="${orderInfo.status eq 2}">已发货</span>
+                    <span th:if="${orderInfo.status eq 3}">已收货</span>
+                    <span th:if="${orderInfo.status eq 4}">已退款</span>
+                    <span th:if="${orderInfo.status eq 5}">已完成</span>
                 </td>
                 <td>						<!-- 如果上面是未支付，那么下面会生成一个立即支付的按钮 -->
                     <button class="btn btn-primary btn-block" type="submit" id="payButton">立即支付</button>
