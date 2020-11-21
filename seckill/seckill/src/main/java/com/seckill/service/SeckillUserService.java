@@ -38,7 +38,23 @@ public class SeckillUserService {
         }
         return user;
     }
-
+    //更新密码
+    public boolean updatePassword(String token,long id,String formPass){
+        SeckillUser user = getById(id);
+        if(user==null){
+            throw new GlobalException(CodeMsg.MOBILE_NOTEXIST);
+        }
+        //更新数据库
+        SeckillUser update=new SeckillUser();
+        update.setId(id);
+        update.setPwd(MD5Util.formPassToDBPass(formPass,user.getSalt()));
+        seckillUserDao.update(update);
+        //修改缓存
+        redisService.delete(SeckillUserKey.getById,""+id);
+        user.setPwd(update.getPwd());
+        redisService.set(SeckillUserKey.token,token,user);
+        return true;
+    }
     public boolean login(HttpServletResponse response, LoginVo loginVo){
 
         if(loginVo == null){
