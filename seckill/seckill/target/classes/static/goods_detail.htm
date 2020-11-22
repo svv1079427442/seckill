@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>商品详情</title>
+    <script type="text/javascript" src="/jquery-validation/lib/jquery-1.11.1.js"></script>
+    <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <!-- layer -->
+    <script type="text/javascript" src="/layer/layer.js"></script>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">秒杀商品详情</div>
+    <div class="panel-body">
+        <span id="userTip" >您还没有登录，请登录后再操作</span>
+        <span>没有收货地址的提示。。。</span>
+        <input type="hidden" id="goodsId" >
+    </div>
+    <table class="table" id="goodslist">
+        <tr>
+            <td>商品名称</td>
+            <td colspan="3" id="goodsName"></td>
+        </tr>
+        <tr>
+            <td>商品图片</td>
+            <td colspan="3"><img id="goodsImg" width="70" height="100"></img></td>
+        </tr>
+        <tr>
+            <td>秒杀开始时间</td>
+            <td id="startTime"></td>
+            <td>
+                <!-- 先取得这个时间 -->
+                <input type="hidden" id="remainSeconds" ></input>
+                <span id="seckillTip"></span>
+            </td>
+            <td>
+                <form id="seckillForm" method="post" action="/seckill/do_seckill">
+                    <button class="btn btn-primary btn-block" type="submit" id="buyButton">立即秒杀</button>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>商品原价</td>
+            <td colspan="3" id="goodsPrice"></td>
+        </tr>
+        <tr>
+            <td>秒杀价</td>
+            <td colspan="3" id="seckillPrice"></td>
+        </tr>
+        <tr>
+            <td>库存数量</td>
+            <td colspan="3" id="stockCount"></td>
+        </tr>
+
+    </table>
+</div>
+</body>
+<script>
+    //初始化时开始
+    $(function () {
+        //countDown();
+        getDetail();
+    });
+    function getQueryString(name){
+        var reg=new RegExp("(^|&)"+name+"=([^&]*)(&|$)");
+        var r=window.location.search.substr(1).match(reg);
+        if(r!=null){
+            return unescape(r[2]);
+        }
+        return null;
+    }
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "H+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+    function getDetail(){
+        var goodsId=getQueryString("goodsId");
+        $.ajax({
+            url:"/goods/detail/"+goodsId,
+            type:"GET",
+            success:function (data) {
+                if (data.code==0){
+                    render(data.data);
+                } else {
+                    layer.msg(data.msg);
+                }
+            },
+            error:function () {
+                layer.msg("客户端请求有误");
+            }
+        });
+    }
+    //渲染页面
+    function render(detail) {
+        var seckillStatus=detail.seckillStatus;
+        var remainSeconds=detail.remainSeconds;
+        var goods = detail.goods;
+        var user=detail.user;
+        var date=new Date(goods.startDate);
+        var str=date.Format("yyyy-MM-dd HH:mm:ss");
+        if(user!=null){
+            $("#userTip").hide();
+        }
+        $("#remainSeconds").val(remainSeconds);
+        $("#goodsName").text(goods.goodsName);
+        $("#goodsImg").attr("src",goods.goodsImg);    //.text();
+        $("#startTime").text(str);
+        $("#remailSeconds").val(goods.remailSeconds);
+        $("#goodsId").val(goods.id);
+        $("#goodsPrice").text(goods.goodsPrice);		//goodsStock----- stockCount
+        $("#seckillPrice").text(goods.seckillPrice);
+        $("#stockCount").text(goods.goodsStock);
+        countDown();
+    }
+    function countDown() {//倒计时
+        var remainSeconds=$("#remainSeconds").val();//
+        var timeout;
+        if(remainSeconds>0){//秒杀未开始
+            $("#buyButton").attr("disabled",true);//未开始按钮不可以点
+            $("#seckillTip").html("秒杀倒计时：" + remainSeconds + "秒");
+
+            timeout = setTimeout(function () {
+                $("#countDown").text(remainSeconds -1);//倒计时减一
+                $("#remainSeconds").val(remainSeconds-1);
+                countDown();
+            },1000);//1秒后改掉当前时间
+        }else if(remainSeconds == 0){//秒杀进行中
+            $("#buyButton").attr("disabled",false);//秒杀开始，可以点按钮
+            if(timeout){
+                clearTimeout(timeout);
+            }
+            $("#seckillTip").html("秒杀进行中");
+        }else {//秒杀已结束
+            $("#buyButton").attr("disabled",true);//不能点
+            $("#seckillTip").html("秒杀已结束");
+        }
+    }
+</script>
+</html>

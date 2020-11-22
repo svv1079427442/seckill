@@ -47,4 +47,11 @@ public class LoginController {
         seckillUserService.login(response,loginVo);
         return Result.success(true);
     }
+    //使用JSR303校验
+    @RequestMapping("/do_login_test")//作为异步操作
+    @ResponseBody
+    public Result<String> doLogintest(HttpServletResponse response, @Valid LoginVo loginVo) {//0代表成功
+        String token=seckillUserService.loginString(response,loginVo);
+        return Result.success(token);
+    }
 }

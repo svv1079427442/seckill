@@ -5,17 +5,18 @@ import com.seckill.pojo.Goods;
 import java.util.Date;
 
 public class GoodsVo extends Goods {
-    private Double SeckillPrice;
+    private Double seckillPrice;
     private Integer stockCount;
     private Date startDate;
     private Date endDate;
 
+
     public Double getSeckillPrice() {
-        return SeckillPrice;
+        return seckillPrice;
     }
 
     public void setSeckillPrice(Double seckillPrice) {
-        SeckillPrice = seckillPrice;
+        this.seckillPrice = seckillPrice;
     }
 
     public Integer getStockCount() {

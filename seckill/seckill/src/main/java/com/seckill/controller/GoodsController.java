@@ -3,8 +3,10 @@ package com.seckill.controller;
 import com.seckill.pojo.SeckillUser;
 import com.seckill.redis.GoodsKey;
 import com.seckill.redis.RedisService;
+import com.seckill.result.Result;
 import com.seckill.service.GoodsService;
 import com.seckill.service.SeckillUserService;
+import com.seckill.vo.GoodsDetailVo;
 import com.seckill.vo.GoodsVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,5 +112,33 @@ public class GoodsController {
             redisService.set(GoodsKey.getGoodsDetail,""+goodsId,html);
         }
         return  html;
+    }
+    //页面静态化controller
+    @RequestMapping(value = "/detail/{goodsId}")
+    @ResponseBody
+    public Result<GoodsDetailVo> todetail_static(HttpServletRequest request, HttpServletResponse response, Model model, SeckillUser user,
+                                                 @PathVariable("goodsId")long goodsId){
+        GoodsVo goods=goodsService.getGoodsVoByGoodsId(goodsId);
+        int seckillStatus=0;
+        int remainSeconds=0;//秒杀倒计时 start-now = remaintime  还剩多长时间
+        long startAt = goods.getStartDate().getTime();
+        long endAt = goods.getEndDate().getTime();
+        long now = System.currentTimeMillis();
+        if(now<startAt){
+            seckillStatus=0;//秒杀未开始
+            remainSeconds=(int)((startAt-now)/100);
+        }else if (now>endAt){
+            seckillStatus=2;//秒杀已结束
+            remainSeconds=-1;
+        }else {
+            seckillStatus=1;//秒杀进行中
+            remainSeconds=0;
+        }
+        GoodsDetailVo vo =new GoodsDetailVo();
+        vo.setGoods(goods);
+        vo.setUser(user);
+        vo.setRemainSeconds(remainSeconds);
+        vo.setSeckillStatus(seckillStatus);
+        return  Result.success(vo);
     }
 }

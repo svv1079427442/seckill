@@ -125,4 +125,35 @@ public class SeckillUserService {
         }
         return user;
     }
+    public String loginString(HttpServletResponse response,LoginVo loginVo) {
+        if(loginVo==null) {
+            return CodeMsg.SERVER_ERROR.getMsg();
+        }
+        //经过了依次MD5的密码
+        String mobile=loginVo.getMobile();
+        String formPass=loginVo.getPassword();
+        //判断手机号是否存在
+        SeckillUser user=getById(Long.parseLong(mobile));
+        //查询不到该手机号的用户
+        if(user==null) {
+            return CodeMsg.MOBILE_NOTEXIST.getMsg();
+        }
+        //手机号存在的情况，验证密码，获取数据库里面的密码与salt去验证
+        //111111--->e5d22cfc746c7da8da84e0a996e0fffa
+        String dbPass=user.getPwd();
+        String dbSalt=user.getSalt();
+        System.out.println("dbPass:"+dbPass+"   dbSalt:"+dbSalt);
+        //验证密码，计算二次MD5出来的pass是否与数据库一致
+        String tmppass=MD5Util.formPassToDBPass(formPass, dbSalt);
+        System.out.println("formPass:"+formPass);
+        System.out.println("tmppass:"+tmppass);
+        if(!tmppass.equals(dbPass)) {
+            return CodeMsg.PASSWORD_ERROR.getMsg();
+        }
+        //生成cookie
+        String token = UUIDUtil.uuid();
+        addCookie(user,token,response);
+//		return CodeMsg.SUCCESS;
+        return token;
+    }
 }

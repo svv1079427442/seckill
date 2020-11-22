@@ -30,9 +30,11 @@ public class SeckillController {
     @Autowired
     SeckillService seckillService;
     @RequestMapping("/do_seckill")
-    public String toLogin(SeckillUser user, Model model,
-                          @RequestParam("goodsId") long goodsId) {
+    public String toLogin(SeckillUser user, Model model
+                          /*@RequestParam("goodsId") long goodsId*/) {
+        long goodsId=1;
         if (user == null) {
+            System.out.println("++++++++++++++++返回登陆页面");
             return "login";//返回页面login
         }
         //先判断库存
