@@ -30,12 +30,12 @@ public class LoginController {
 
     @RequestMapping("/to_login")
     public String toLogin(SeckillUser user, Model model) {
-        if (user != null) {
+        if (user == null) {
             model.addAttribute("user", user);
+            System.out.println(user);
             return "goods_list";
         } else {
             return "login";//返回页面login
-
         }
 
     }

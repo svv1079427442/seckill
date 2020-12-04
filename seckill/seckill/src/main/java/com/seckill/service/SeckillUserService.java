@@ -1,6 +1,7 @@
 package com.seckill.service;
 
 import com.seckill.dao.SeckillUserDao;
+import com.seckill.dao.UserDao;
 import com.seckill.exception.GlobalException;
 import com.seckill.pojo.SeckillUser;
 import com.seckill.redis.RedisService;
@@ -9,6 +10,7 @@ import com.seckill.result.CodeMsg;
 import com.seckill.util.MD5Util;
 import com.seckill.util.UUIDUtil;
 import com.seckill.vo.LoginVo;
+import com.seckill.vo.RegisterVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+
 @Component
 @Service
 public class SeckillUserService {
@@ -24,6 +28,8 @@ public class SeckillUserService {
     SeckillUserDao seckillUserDao;
     @Autowired
     RedisService redisService;
+    @Autowired
+    UserDao userDao;
     public SeckillUser getById(long id){
         SeckillUser user = redisService.get(SeckillUserKey.getById, "" + id, SeckillUser.class);
        //先去缓存查数据
@@ -56,7 +62,6 @@ public class SeckillUserService {
         return true;
     }
     public boolean login(HttpServletResponse response, LoginVo loginVo){
-
         if(loginVo == null){
             throw new GlobalException(CodeMsg.SERVER_ERROR);
         }
@@ -90,11 +95,33 @@ public class SeckillUserService {
         //每次登录都会产生不同的token，设置到redis缓存中
         redisService.set(SeckillUserKey.token,token,user);
         Cookie cookie =new Cookie(COOKIE1_NAME_TOKEN,token);
-        cookie.setMaxAge(SeckillUserKey.token.expireSeconds());//1小时与session'一致
+        cookie.setMaxAge(3600);//1小时与session'一致
         //网站根目录
         cookie.setPath("/");
         response.addCookie(cookie);
         return true;
+    }
+    public boolean register(HttpServletResponse response, RegisterVo loginVo){
+        System.out.println("开始注册");
+        if(loginVo == null){
+            throw new GlobalException(CodeMsg.SERVER_ERROR);
+        }
+        //验证
+        String formPass = loginVo.getPassword();
+        String mobile = loginVo.getMobile();
+        //验证密码
+        //计算二次md5
+        String dbsalt="1q2w3e4r";
+        String tmppass= MD5Util.formPassToDBPass(formPass,dbsalt);
+        System.out.println("formPass:" + formPass);
+        System.out.println("tmppass:" + tmppass);
+        loginVo.setPassword(tmppass);
+        loginVo.setNickname("user"+mobile.substring(9,11));
+        loginVo.setSalt(dbsalt);
+        loginVo.setRegister_date(new Date());
+        boolean insert = userDao.insert_into(loginVo);
+        System.out.println("插入结果："+insert);
+        return insert;
     }
     /*
         添加cookie或者叫更新cookie
