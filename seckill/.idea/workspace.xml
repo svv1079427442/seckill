@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="417246df-a81a-40b0-82fd-651c39cf4c72" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/SeckillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/SeckillController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/service/SeckillUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/service/SeckillUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/resources/static/goods_detail.htm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/com/seckill/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/com/seckill/controller/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/com/seckill/controller/SeckillController.class" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/com/seckill/controller/SeckillController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/static/goods_detail.htm" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/static/goods_detail.htm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seckill/src/main/resources/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/resources/templates/register.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/seckill/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,24 +14,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/RegisterController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="36" column="31" lean-forward="true" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#539#540#0" expanded="true" />
-                <element signature="e#587#588#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/LoginController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-67">
-              <caret line="34" column="37" lean-forward="true" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+            <state relative-caret-position="83">
+              <caret line="46" selection-start-line="46" selection-end-line="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -50,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/service/SeckillUserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="124" column="5" lean-forward="true" selection-start-line="124" selection-start-column="5" selection-end-line="124" selection-end-column="5" />
+            <state relative-caret-position="-54">
+              <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -59,11 +37,29 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/pojo/SeckillUser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/UserDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
+            <state relative-caret-position="139">
               <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/util/MD5Util.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-85">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
             </state>
           </provider>
         </entry>
@@ -101,35 +97,32 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/register.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="787">
-              <caret line="97" column="25" lean-forward="true" selection-start-line="97" selection-start-column="25" selection-end-line="97" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/SeckillUserDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+            <state relative-caret-position="112">
+              <caret line="76" column="67" selection-start-line="76" selection-start-column="67" selection-end-line="76" selection-end-column="67" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/OrderDao.java">
+        <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/seckill_fail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="15" column="43" lean-forward="true" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="252">
+              <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/goods_detail.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="281">
+              <caret line="86" column="55" lean-forward="true" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -149,6 +142,7 @@
     <findStrings>
       <find>@</find>
       <find>seckillTip</find>
+      <find>buyButton</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -190,11 +184,11 @@
         <option value="$PROJECT_DIR$/seckill/src/main/resources/static/goods_detail.htm" />
         <option value="$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/SeckillController.java" />
         <option value="$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/LoginController.java" />
-        <option value="$PROJECT_DIR$/seckill/src/main/resources/templates/register.html" />
         <option value="$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/RegisterController.java" />
         <option value="$PROJECT_DIR$/seckill/src/main/java/com/seckill/vo/RegisterVo.java" />
         <option value="$PROJECT_DIR$/seckill/src/main/java/com/seckill/service/SeckillUserService.java" />
         <option value="$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/UserDao.java" />
+        <option value="$PROJECT_DIR$/seckill/src/main/resources/templates/register.html" />
       </list>
     </option>
   </component>
@@ -205,9 +199,9 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-104" />
-    <option name="y" value="195" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="215" />
+    <option name="y" value="77" />
     <option name="width" value="1620" />
     <option name="height" value="959" />
   </component>
@@ -400,7 +394,7 @@
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1607070983647" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1607073237890" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -488,18 +482,18 @@
       <workItem from="1606824910685" duration="77000" />
       <workItem from="1606894247908" duration="166000" />
       <workItem from="1606967621658" duration="10451000" />
-      <workItem from="1607062777036" duration="8191000" />
+      <workItem from="1607062777036" duration="10180000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80181000" />
+    <option name="totallyTimeSpent" value="82170000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-83" y="156" width="1296" height="767" extended-state="0" />
+    <frame x="83" y="342" width="1296" height="767" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28594506" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27059773" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -509,7 +503,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.16220473" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.31968504" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -538,13 +532,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/pojo/SeckillUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-925">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/exception/GlobalException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
@@ -598,13 +585,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1120">
           <caret line="45" column="42" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/util/MD5Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="10" column="46" lean-forward="true" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -834,20 +814,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/seckill_fail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/goods_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="87" column="43" lean-forward="true" selection-start-line="87" selection-start-column="12" selection-end-line="87" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
@@ -929,16 +895,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/LoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-67">
-          <caret line="34" column="37" lean-forward="true" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/GoodsDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
@@ -949,23 +905,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/service/SeckillUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="124" column="5" lean-forward="true" selection-start-line="124" selection-start-column="5" selection-end-line="124" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="787">
-          <caret line="97" column="25" lean-forward="true" selection-start-line="97" selection-start-column="25" selection-end-line="97" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/vo/LoginVo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="28">
@@ -973,6 +912,61 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/UserDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/util/MD5Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-85">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/pojo/SeckillUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/service/SeckillUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-54">
+          <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/seckill_fail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/goods_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="86" column="55" lean-forward="true" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -995,10 +989,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/UserDao.java">
+    <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/register.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+        <state relative-caret-position="112">
+          <caret line="76" column="67" selection-start-line="76" selection-start-column="67" selection-end-line="76" selection-end-column="67" />
+          <folding>
+            <element signature="n#style#0;n#p#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

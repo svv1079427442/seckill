@@ -56,14 +56,12 @@
         </div>
     </div>
 
-
-
     <div class="row">
         <div class="col-md-5">
             <button class="btn btn-primary btn-block" type="reset" onclick="reset()">重置</button>
         </div>
         <div class="col-md-5">
-            <button class="btn btn-primary btn-block" type="submit" onclick="register()">注册</button>
+            <button id="btn_register" class="btn btn-primary btn-block" type="submit" onclick="register()">注册</button>
         </div>
     </div>
 
@@ -71,16 +69,20 @@
 </body>
 <script>
     function checkpassword() {
+
         var pwd=$("#password").val();
         var con_pwd=$("#confirm_password").val();
         if(pwd!=con_pwd){
             $("#confirm_password").css("border-color","red");
+            $("#btn_register").attr("disabled",true);
             return false;
         }
         $("#confirm_password").css("border-color","#fff");
+        $("#btn_register").attr("disabled",false);
         return true;
     }
     function register(){
+        checkpassword();
         $("#loginForm").validate({
             submitHandler:function(form){
                 doRegister();
