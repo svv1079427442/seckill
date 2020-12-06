@@ -61,7 +61,23 @@
 </body>
 <script>
     function doSeckill(){
-
+        $.ajax({
+           url:"/seckill/do_seckill",
+            type:"POST",
+            data:{
+               goodsId:$("#goodsId").val()
+            },
+            success:function (data) {
+                if (data.code==0){
+                    window.location.href="order_detail.htm?orderId="+data.data.id;
+                }else {
+                    layer.msg(data.msg);
+                }
+            },
+            error:function () {
+                layer.msg("请求有误！");
+            }
+        });
     }
     //初始化时开始
     $(function () {

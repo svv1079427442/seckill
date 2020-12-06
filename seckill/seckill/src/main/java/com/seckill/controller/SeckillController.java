@@ -32,6 +32,8 @@ public class SeckillController {
     OrderService orderService;
     @Autowired
     SeckillService seckillService;
+    //post与get区别，get是幂等的无论调用多少次，服务端都一样，从服务端获取数据
+    //post不是幂等的，向服务端提交数据。
     @RequestMapping(value = "/do_seckill",method = RequestMethod.POST)
     @ResponseBody
     public Result<OrderInfo> list(SeckillUser user, Model model
@@ -39,22 +41,23 @@ public class SeckillController {
         long goodsId=1;
         model.addAttribute("user",user);
         if (user == null) {
-            System.out.println("++++++++++++++++返回登陆页面");
             return Result.error(CodeMsg.SESSION_ERROR);//返回页面login
         }
         //先判断库存
         GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
         int store=goods.getStockCount();
-        if(store<0){
-            model.addAttribute("errormsg", CodeMsg.MIAOSHA_OVER_ERROR.getMsg());//秒杀完毕
+        System.out.println("当前库存还有："+store);
+        if(store<=0){
+            System.out.println("********************sssssssssssss"+"没库存了");
+            //model.addAttribute("errormsg", CodeMsg.MIAOSHA_OVER_ERROR.getMsg());//秒杀完毕
             return Result.error(CodeMsg.MIAOSHA_OVER_ERROR);
         }
         //判断是否秒杀到了
         SeckillOrder order = orderService.getSeckillOrderByUserIdGoodsId(user.getId(),goods.getId());
         if(order!=null){//用户已经秒杀，防止重复秒杀
-            System.out.println(order.toString());
-            model.addAttribute("errormsg",CodeMsg.REPEATE_MIAOSHA.getMsg());
-            System.out.println("用户重复秒杀");
+            //System.out.println(order.toString());
+            //model.addAttribute("errormsg",CodeMsg.REPEATE_MIAOSHA.getMsg());
+            //System.out.println("用户重复秒杀");
             return Result.error(CodeMsg.REPEATE_MIAOSHA);
         }
         //减库存//下订单//写入秒杀订单

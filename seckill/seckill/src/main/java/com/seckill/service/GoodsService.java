@@ -3,6 +3,7 @@ package com.seckill.service;
 import com.seckill.dao.GoodsDao;
 import com.seckill.pojo.Goods;
 import com.seckill.pojo.SeckillGoods;
+import com.seckill.redis.RedisService;
 import com.seckill.vo.GoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ public class GoodsService {
     @Autowired
     GoodsDao goodsDao;
 
+
     public List<GoodsVo> listGoodsVo(){
         return goodsDao.listGoodsVo();
     }
@@ -23,9 +25,10 @@ public class GoodsService {
         return goodsDao.getGoodsVoByGoodsId(goodsId);
     }
 
-    public void reduceStock(GoodsVo goods) {
+    public boolean reduceStock(GoodsVo goods) {
         SeckillGoods g=new SeckillGoods();
         g.setGoodsId(goods.getId());
-        goodsDao.reduceStock(g);
+        return goodsDao.reduceStock(g);
     }
+
 }
