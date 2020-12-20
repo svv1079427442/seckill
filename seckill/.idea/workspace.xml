@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="417246df-a81a-40b0-82fd-651c39cf4c72" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/SeckillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/SeckillController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/rabbitmq/MQReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/rabbitmq/MQReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/redis/GoodsKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/redis/GoodsKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/redis/RedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/redis/RedisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/service/SeckillService.java" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/service/SeckillService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/resources/static/goods_detail.htm" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/resources/static/goods_detail.htm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/com/seckill/controller/SeckillController.class" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/com/seckill/controller/SeckillController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/com/seckill/rabbitmq/MQReceiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/com/seckill/rabbitmq/MQReceiver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/com/seckill/redis/GoodsKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/com/seckill/redis/GoodsKey.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/com/seckill/redis/RedisService.class" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/com/seckill/redis/RedisService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/com/seckill/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/com/seckill/service/OrderService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/com/seckill/service/SeckillService.class" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/com/seckill/service/SeckillService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/static/goods_detail.htm" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/static/goods_detail.htm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/seckill.jar" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/seckill.jar" afterDir="false" />
-    </list>
+    <list default="true" id="417246df-a81a-40b0-82fd-651c39cf4c72" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/seckill/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,8 +14,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/SeckillController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="83" column="58" selection-start-line="83" selection-start-column="58" selection-end-line="83" selection-end-column="58" />
+            <state relative-caret-position="624">
+              <caret line="78" column="31" lean-forward="true" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1506#1521#0" expanded="true" />
@@ -467,7 +447,7 @@
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1608466351922" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1608466769663" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -562,12 +542,12 @@
       <workItem from="1607215812191" duration="19623000" />
       <workItem from="1607408976803" duration="614000" />
       <workItem from="1607854207730" duration="3890000" />
-      <workItem from="1608443130436" duration="9756000" />
+      <workItem from="1608443130436" duration="10230000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="118744000" />
+    <option name="totallyTimeSpent" value="119218000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -1098,8 +1078,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/SeckillController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="83" column="58" selection-start-line="83" selection-start-column="58" selection-end-line="83" selection-end-column="58" />
+        <state relative-caret-position="624">
+          <caret line="78" column="31" lean-forward="true" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1506#1521#0" expanded="true" />
