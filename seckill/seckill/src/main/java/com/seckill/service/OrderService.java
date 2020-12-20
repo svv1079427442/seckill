@@ -40,12 +40,8 @@ public class OrderService {
         orderInfo.setOrderChannel(1);
         orderInfo.setStatus(0);//0代表未支付
         orderInfo.setUserId(user.getId());
-
-        long orderId  = orderDao.insert(orderInfo);
-        //查表当前订单编号
-
+        orderDao.insert(orderInfo);
         //设置秒杀order表
-
         SeckillOrder seckillOrder=new SeckillOrder();
         seckillOrder.setGoodsId(goods.getId());
         seckillOrder.setOrderId(orderInfo.getId());

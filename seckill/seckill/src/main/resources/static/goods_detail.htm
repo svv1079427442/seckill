@@ -6,6 +6,7 @@
     <script type="text/javascript" src="/jquery-validation/lib/jquery-1.11.1.js"></script>
     <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
     <!-- layer -->
     <script type="text/javascript" src="/layer/layer.js"></script>
 </head>
@@ -60,6 +61,43 @@
 </div>
 </body>
 <script>
+    function getSeckillResult(goodsId) {
+        g_showLoading();
+        $.ajax({
+            url:"/seckill/result",
+            type:"GET",
+            data:{
+                goodsId:$("#goodsId").val()
+            },
+            success:function (data) {
+                if (data.code==0){
+                    var result = data.data;
+                    if(result < 0){
+                        layer.msg("对不起，秒杀失败")
+                    }else if(result == 0){//继续轮询
+                        setTimeout(function () {
+                            getSeckillResult(goodsId);
+                        },50);
+                    }else {
+                        layer.msg("恭喜你，秒杀成功！是否查看订单？",{
+                            btn:["是","否"]
+                            },
+                            function () {
+                                window.location.href="order_detail.htm?orderId="+result;
+                            },
+                            function () {
+                                layer.closeAll();
+                            });
+                    }
+                }else {
+                    layer.msg(data.msg);
+                }
+            },
+            error:function () {
+                layer.msg("请求有误！");
+            }
+        });
+    }
     function doSeckill(){
         $.ajax({
            url:"/seckill/do_seckill",
@@ -69,7 +107,8 @@
             },
             success:function (data) {
                 if (data.code==0){
-                    window.location.href="order_detail.htm?orderId="+data.data.id;
+                    //window.location.href="order_detail.htm?orderId="+data.data.id;
+                    getSeckillResult($("#goodsId").val());
                 }else {
                     layer.msg(data.msg);
                 }
@@ -168,6 +207,11 @@
             $("#buyButton").attr("disabled",true);//不能点
             $("#seckillTip").html("秒杀已结束");
         }
+    }
+    //加载中
+    function g_showLoading(){
+        var idx = layer.msg('处理中...', {icon: 16,shade: [0.5, '#f5f5f5'],scrollbar: false,offset: '0px', time:100000}) ;
+        return idx;
     }
 </script>
 </html>

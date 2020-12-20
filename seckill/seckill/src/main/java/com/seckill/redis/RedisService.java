@@ -196,4 +196,20 @@ public class RedisService {
             returnToPool(jedis);
         }
     }
+    /**
+     * 检查key是否存在
+     * @param prefix
+     * @param key
+     * @return
+     */
+    public <T> boolean exitsKey(KeyPrefix prefix,String key){
+        Jedis jedis=null;
+        try {
+            jedis=jedisPool.getResource();
+            String realKey=prefix.getPrefix()+key;
+            return jedis.exists(realKey);
+        }finally {
+            returnToPool(jedis);
+        }
+    }
 }
