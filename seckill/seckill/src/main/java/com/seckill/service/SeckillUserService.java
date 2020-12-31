@@ -33,7 +33,8 @@ public class SeckillUserService {
     public SeckillUser getById(long id){
         SeckillUser user = redisService.get(SeckillUserKey.getById, "" + id, SeckillUser.class);
        //先去缓存查数据
-        if(user!=null){
+        Date systemDate = new Date();
+        if(user!=null ){
             return user;
         }
         //没有就到数据库查
@@ -65,6 +66,12 @@ public class SeckillUserService {
         if(loginVo == null){
             throw new GlobalException(CodeMsg.SERVER_ERROR);
         }
+        //更新登录次数，最后一次登陆时间
+        SeckillUser users = seckillUserDao.getById(Long.parseLong(loginVo.getMobile()));
+        users.setLoginCount(users.getLoginCount()+1);
+        users.setLastLoginDate(new Date());
+        users.setId(Long.parseLong(loginVo.getMobile()));
+        seckillUserDao.updateLoginCount(users);
         //验证
         String formPass = loginVo.getPassword();
         String mobile = loginVo.getMobile();
