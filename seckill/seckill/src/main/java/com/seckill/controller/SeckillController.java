@@ -73,6 +73,11 @@ public class SeckillController implements InitializingBean {
         if(over){
             return Result.error(CodeMsg.MIAOSHA_OVER_ERROR);
         }
+        //判断是否秒杀到了
+        SeckillOrder order = orderService.getSeckillOrderByUserIdGoodsId(user.getId(),goodsId);
+        if(order!=null){//用户已经秒杀，防止重复秒杀
+            return Result.error(CodeMsg.REPEATE_MIAOSHA);
+        }
         //redis预减库存
         Long stock = redisService.decr(GoodsKey.getSeckillGoodsStock, "" + goodsId);
         System.out.println("++++++++++++++++++++++库存数量stock："+stock);
@@ -82,11 +87,7 @@ public class SeckillController implements InitializingBean {
             localOverMap.put(goodsId,true);
             return Result.error(CodeMsg.MIAOSHA_OVER_ERROR);
         }
-        //判断是否秒杀到了
-        SeckillOrder order = orderService.getSeckillOrderByUserIdGoodsId(user.getId(),goodsId);
-        if(order!=null){//用户已经秒杀，防止重复秒杀
-            return Result.error(CodeMsg.REPEATE_MIAOSHA);
-        }
+
         //入队
         SeckillMessage seckillMessage = new SeckillMessage();
         seckillMessage.setUser(user);

@@ -108,6 +108,7 @@
             success:function (data) {
                 if (data.code==0){
                     //window.location.href="order_detail.htm?orderId="+data.data.id;
+                    g_showLoading();
                     getSeckillResult($("#goodsId").val());
                 }else {
                     layer.msg(data.msg);

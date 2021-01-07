@@ -15,7 +15,7 @@ public abstract class BasePrefix implements KeyPrefix{
         this.prefix = prefix;
     }
     public int expireSeconds(){
-        return expireSeconds=3600*24;//缓存有效时间
+        return expireSeconds=3600;//缓存有效时间
 
     }
     //前缀为类名:+prefix

@@ -170,7 +170,7 @@ keyProperty = "id"
 
 第一次压测。
 
-![1605850441281](C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1605850441281.png)
+![1605850441281](D:\project\endproject\seckill\seckill\img\1605850441281.png)
 
 /goods/to_list
 
@@ -178,7 +178,7 @@ keyProperty = "id"
 
 <img src="C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1605846467939.png" alt="1605846467939" style="zoom:50%;" />
 
-![1605847727137](C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1605847727137.png)
+![1605847727137](D:\project\endproject\seckill\seckill\img\1605847727137.png)
 
 查询用户信息/User/info
 
@@ -186,31 +186,31 @@ keyProperty = "id"
 
 使用redis时QPS达到2000多。缓存还是很强大的。（这里使用的是同一个token）
 
-<img src="C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1605850253239.png" alt="1605850253239" style="zoom:80%;" />
+<img src="D:\project\endproject\seckill\seckill\img\1605850253239.png" alt="1605850253239" style="zoom:80%;" />
 
 模拟不同的token进行压测。
 
 1.添加CSV配置文件
 
-<img src="C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1605850673171.png" alt="1605850673171" style="zoom:67%;" />
+<img src="D:\project\endproject\seckill\seckill\img\1605850673171.png" alt="1605850673171" style="zoom:67%;" />
 
 2.编写config.txt文件
 
 编写变量名称
 
-<img src="C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1605851031927.png" alt="1605851031927" style="zoom:50%;" />
+<img src="D:\project\endproject\seckill\seckill\img\1605851031927.png" alt="1605851031927" style="zoom:50%;" />
 
-![1605850970447](C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1605850970447.png)
+![1605850970447](D:\project\endproject\seckill\seckill\img\1605850970447.png)
 
 压测结果达到每秒2000
 
-<img src="C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1605851218283.png" alt="1605851218283" style="zoom:80%;" />
+<img src="D:\project\endproject\seckill\seckill\img\1605851218283.png" alt="1605851218283" style="zoom:80%;" />
 
 开始正式测试秒杀接口
 
 先动态生成1000个用户，然后jmeter启动5000进程，循环10次就是五万个请求，压测秒杀接口。
 
-<img src="C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1606008941886.png" alt="1606008941886" style="zoom:50%;" />
+<img src="D:\project\endproject\seckill\seckill\img\1606008941886.png" alt="1606008941886" style="zoom:50%;" />
 
 可以看到QBS达到600左右。
 
@@ -220,7 +220,7 @@ keyProperty = "id"
 
 则都可以往下执行，但是他们两都没秒杀到
 
-<img src="C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1606009025170.png" alt="1606009025170" style="zoom:67%;" />
+<img src="D:\project\endproject\seckill\seckill\img\1606009025170.png" alt="1606009025170" style="zoom:67%;" />
 
 
 
@@ -296,7 +296,7 @@ keyProperty = "id"
 
 ### 压测
 
-![1605943305984](C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1605943305984.png)
+![1605943305984](D:\project\endproject\seckill\seckill\img\1605943305984.png)
 
 没做页面缓存之前QPS：950，做了之后提升到2000的QPS.可以看出优化的提高还是很大的。系统负载load在5左右。
 
@@ -330,15 +330,15 @@ update seckill_goods set stock_count = stock_count-1 where goods_id=#{goodsId} a
 
 <u>当库存还有1的时候，两个进程同时进入，就可能导致超卖，只需要加上一个判断库存是否大于0，给数据库加个锁。并且在下订单时还需要去判断下减库存的操作是否成功，如果失败那么就不下单。这样订单也不会出现多下的现象。</u>
 
-![1607243149077](C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1607243149077.png)
+![1607243149077](D:\project\endproject\seckill\seckill\img\1607243149077.png)
 
 <u>**但是仅仅这样还不够，可能会出现一个人抢到两个商品的情况，试想如果库存现在是10，一个用户同时发送两个请求，它都会去减库存下订单，导致一个用户抢到2个商品。解决方法：给秒杀订单表加上一个唯一索引。**</u>
 
-![1607224389040](C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1607224389040.png)
+![1607224389040](D:\project\endproject\seckill\seckill\img\1607224389040.png)
 
 没有优化之前的压测
 
-![1607243594459](C:\Users\svv\AppData\Roaming\Typora\typora-user-images\1607243594459.png)
+![1607243594459](D:\project\endproject\seckill\seckill\img\1607243594459.png)
 
 qps很低，大概在490左右，此时系统的负载还是很高的大概在10左右。
 

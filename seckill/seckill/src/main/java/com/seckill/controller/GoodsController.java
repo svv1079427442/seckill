@@ -54,6 +54,7 @@ public class GoodsController {
         //查询商品列表
         List<GoodsVo> list = goodsService.listGoodsVo();
         model.addAttribute("goodsList",list);
+        System.out.println("*******************************"+list+"***************************");
         //return "goods_list";
 
         SpringWebContext springWebContext=new SpringWebContext(request,response,request.getServletContext(),request.getLocale(),model.asMap(),applicationContext);
