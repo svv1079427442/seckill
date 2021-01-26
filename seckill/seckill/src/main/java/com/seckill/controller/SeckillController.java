@@ -67,7 +67,7 @@ public class SeckillController implements InitializingBean {
             return Result.error(CodeMsg.SESSION_ERROR);//返回页面login
         }
         //内存标记，减少redis访问
-        System.out.println("========================获取的goodsId为："+goodsId);
+        System.out.println("获取的goodsId为："+goodsId);
         boolean over = localOverMap.get(goodsId);
         //over为true，直接返回秒杀完毕，库存不足
         if(over){
@@ -81,7 +81,7 @@ public class SeckillController implements InitializingBean {
         //redis预减库存
         Long stock = redisService.decr(GoodsKey.getSeckillGoodsStock, "" + goodsId);
         System.out.println("同一用户执行了第二次");
-        System.out.println("++++++++++++++++++++++库存数量stock："+stock);
+        System.out.println("库存数量stock："+stock);
         //判断库存数量
         if(stock < 0){
             //置为true代表redis库存空了
