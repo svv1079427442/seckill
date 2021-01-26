@@ -80,6 +80,7 @@ public class SeckillController implements InitializingBean {
         }
         //redis预减库存
         Long stock = redisService.decr(GoodsKey.getSeckillGoodsStock, "" + goodsId);
+        System.out.println("同一用户执行了第二次");
         System.out.println("++++++++++++++++++++++库存数量stock："+stock);
         //判断库存数量
         if(stock < 0){
