@@ -12,16 +12,15 @@ import com.seckill.service.GoodsService;
 import com.seckill.service.OrderService;
 import com.seckill.service.SeckillService;
 import com.seckill.service.SeckillUserService;
+
 import com.seckill.vo.GoodsVo;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,14 +56,21 @@ public class SeckillController implements InitializingBean {
 
 
 
-    @RequestMapping(value = "/do_seckill",method = RequestMethod.POST)
+    @RequestMapping(value = "/{path}/do_seckill",method = RequestMethod.POST)
     @ResponseBody
-    public Result<Integer> list(SeckillUser user, Model model,
-            @RequestParam("goodsId") long goodsId) {
-        //long goodsId=1;
+    public Result<Integer> seckill(SeckillUser user, Model model,
+                                   @RequestParam(value = "goodsId",defaultValue = "0") long goodsId,
+                                   @PathVariable("path") String path) {
+        System.out.println("*************************"+ "开始验证秒杀地址" +"*************************");
         model.addAttribute("user",user);
         if (user == null) {
             return Result.error(CodeMsg.SESSION_ERROR);//返回页面login
+        }
+        //验证path
+        boolean check = seckillService.checkPath(user,goodsId,path);
+        System.out.println("验证结果：" + check);
+        if(!check){
+            return Result.error(CodeMsg.REQUEST_ILLEAGAL);
         }
         //内存标记，减少redis访问
         System.out.println("获取的goodsId为："+goodsId);
@@ -118,6 +124,26 @@ public class SeckillController implements InitializingBean {
         model.addAttribute("orderInfo",orderInfo);
         model.addAttribute("goods",goods);
         return Result.success(orderInfo);*/
+    }
+
+    /**
+     * 隐藏秒杀接口
+     * @param user
+     * @param model
+     * @param goodsId
+     * @return
+     */
+    @RequestMapping(value = "/path",method = RequestMethod.GET)
+    @ResponseBody
+    public Result<String> getSeckillPath(HttpServletRequest request, SeckillUser user, Model model,
+                                         @RequestParam("goodsId") long goodsId) {
+        //long goodsId=1;
+        model.addAttribute("user", user);
+        if (user == null) {
+            return Result.error(CodeMsg.SESSION_ERROR);//返回页面login
+        }
+        String path = seckillService.createSeckillPath(user,goodsId);
+        return Result.success(path);
     }
     /**
      * 客户端做一个轮询，查看是否成功与失败，失败了则不用继续轮询。

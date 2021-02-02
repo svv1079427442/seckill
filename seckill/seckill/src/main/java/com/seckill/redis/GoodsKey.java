@@ -3,7 +3,7 @@ package com.seckill.redis;
 public class GoodsKey extends BasePrefix{
 
 
-    private GoodsKey(int expreSeconds, String prefix){
+    public GoodsKey(int expreSeconds, String prefix){
         super(expreSeconds,prefix);
     }
     //商品列表

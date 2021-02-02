@@ -6,8 +6,8 @@ import com.seckill.pojo.SeckillOrder;
 import com.seckill.pojo.SeckillUser;
 import com.seckill.redis.RedisService;
 import com.seckill.redis.SeckillKey;
-import com.seckill.result.CodeMsg;
-import com.seckill.result.Result;
+import com.seckill.util.MD5Util;
+import com.seckill.util.UUIDUtil;
 import com.seckill.vo.GoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +56,20 @@ public class SeckillService {
 
     private boolean getGoodsOver(long goodsId) {
         return  redisService.exitsKey(SeckillKey.isGoodsOver, ""+goodsId);
+    }
+
+    public boolean checkPath(SeckillUser user, long goodsId, String path) {
+        if(user == null || path == null){
+            return false;
+        }
+        String redisPath = redisService.get(SeckillKey.getMiaoshaPath,""+user.getId()+"_"+goodsId,String.class);
+        return path.equals(redisPath);
+    }
+
+    public String createSeckillPath(SeckillUser user, long goodsId) {
+        //随机生成字符串
+        String str = MD5Util.md5(UUIDUtil.uuid()+"123456");
+        redisService.set(SeckillKey.getMiaoshaPath,""+user.getId()+"_"+goodsId,str);
+        return str;
     }
 }

@@ -7,7 +7,7 @@ public abstract class BasePrefix implements KeyPrefix{
     }
     public BasePrefix(String prefix) {
         //this(0, prefix);//默认使用0，不会过期
-        this.expireSeconds=3600*24;
+        this.expireSeconds=0;
         this.prefix=prefix;
     }
     public BasePrefix(int expireSeconds, String prefix) {
@@ -15,7 +15,7 @@ public abstract class BasePrefix implements KeyPrefix{
         this.prefix = prefix;
     }
     public int expireSeconds(){
-        return expireSeconds=3600;//缓存有效时间
+        return expireSeconds=3600*24;//缓存有效时间
 
     }
     //前缀为类名:+prefix
