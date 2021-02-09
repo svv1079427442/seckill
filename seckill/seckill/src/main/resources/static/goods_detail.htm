@@ -36,12 +36,18 @@
                 <span id="seckillTip"></span>
             </td>
             <td>
-                <!--
-                <form id="seckillForm" method="post" action="/seckill/do_seckill">
+                <!--                <form id="seckillForm" method="post" action="/seckill/do_seckill">
                     <button class="btn btn-primary btn-block" type="submit" id="buyButton">立即秒杀</button>
                 </form>
                 -->
-                <button class="btn btn-primary btn-block" type="button" id="buyButton" onclick="getSeckillPath()">立即秒杀</button>
+                <div class="row">
+                    <div class="form-inline">
+                        <img id="vertifyCodeImg" width="80" height="30" style="display:none" onclick="refreshVCode()" />
+                        <input id="vertifyCode" class="form-control" style="display:none">
+                        <button class="btn btn-primary" type="button" id="buyButton" onclick="getSeckillPath()">立即秒杀</button>
+                    </div>
+                </div>
+
             </td>
         </tr>
         <tr>
@@ -210,13 +216,15 @@
         $("#stockCount").text(goods.goodsStock);
         countDown();
     }
+    function refreshVCode() {
+        $("#vertifyCodeImg").attr("src","/seckill/verifyCode?goodsId="+$("#goodsId").val()+'&timestamp='+new Date().getTime());
+    }
     function countDown() {//倒计时
         var remainSeconds=$("#remainSeconds").val();//
         var timeout;
         if(remainSeconds>0){//秒杀未开始
             $("#buyButton").attr("disabled",true);//未开始按钮不可以点
             $("#seckillTip").html("秒杀倒计时：" + remainSeconds + "秒");
-
             timeout = setTimeout(function () {
                 $("#countDown").text(remainSeconds -1);//倒计时减一
                 $("#remainSeconds").val(remainSeconds-1);
@@ -228,9 +236,18 @@
                 clearTimeout(timeout);
             }
             $("#seckillTip").html("秒杀进行中");
+            $("#vertifyCodeImg").attr("src","/seckill/verifyCode?goodsId="+$("#goodsId").val());
+            $("#vertifyCodeImg").show();
+            $("#vertifyCode").show();
+
+
+
+
         }else {//秒杀已结束
             $("#buyButton").attr("disabled",true);//不能点
             $("#seckillTip").html("秒杀已结束");
+            $("#vertifyCodeImg").hide();
+            $("#vertifyCode").hide();
         }
     }
     //加载中
@@ -238,5 +255,6 @@
         var idx = layer.msg('处理中...', {icon: 16,shade: [0.5, '#f5f5f5'],scrollbar: false,offset: '0px', time:100000}) ;
         return idx;
     }
+
 </script>
 </html>

@@ -20,7 +20,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,6 +149,7 @@ public class SeckillController implements InitializingBean {
         }
         String path = seckillService.createSeckillPath(user,goodsId);
         return Result.success(path);
+
     }
     /**
      * 客户端做一个轮询，查看是否成功与失败，失败了则不用继续轮询。
@@ -158,9 +164,32 @@ public class SeckillController implements InitializingBean {
                                         @RequestParam(value = "goodsId", defaultValue = "0") long goodsId) {
         long result=seckillService.getSeckillResult(user.getId(),goodsId);
         System.out.println("轮询 result："+result);
+
         return Result.success(result);
     }
 
+    @RequestMapping(value = "/verifyCode", method = RequestMethod.GET)
+    @ResponseBody
+    public Result<String> getSeckillVerifyCode(Model model, SeckillUser user,
+                                        @RequestParam(value = "goodsId") long goodsId, HttpServletResponse response) {
+        model.addAttribute("user", user);
+        if (user == null) {
+            return Result.error(CodeMsg.SESSION_ERROR);//返回页面login
+        }
+        //生成验证码
+        BufferedImage image = seckillService.createVerifyCode(user,goodsId);
+        try {
+            OutputStream out=response.getOutputStream();
+            //输出验证码
+            ImageIO.write(image,"JPEG", out);
+            out.flush();
+            out.close();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Result.error(CodeMsg.SECKILL_FAIL);
+        }
+    }
    /* //post与get区别，get是幂等的无论调用多少次，服务端都一样，从服务端获取数据
     //post不是幂等的，向服务端提交数据。
     @RequestMapping(value = "/do_seckill",method = RequestMethod.POST)

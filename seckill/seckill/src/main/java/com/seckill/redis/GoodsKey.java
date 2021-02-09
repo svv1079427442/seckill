@@ -11,5 +11,5 @@ public class GoodsKey extends BasePrefix{
     //商品详情
     public static GoodsKey getGoodsDetail=new GoodsKey(60,"gd");
     //商品库存
-    public static GoodsKey getSeckillGoodsStock=new GoodsKey(0,"gs");
+    public static GoodsKey getSeckillGoodsStock=new GoodsKey(3600,"gs");
 }

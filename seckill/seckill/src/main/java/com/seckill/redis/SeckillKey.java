@@ -8,5 +8,5 @@ public class SeckillKey extends BasePrefix{
     //有效期60s
     public static SeckillKey getMiaoshaPath=new SeckillKey(60,"mp");
     //验证码   300s有效期
-    public static SeckillKey getMiaoshaVertifyCode=new SeckillKey(300,"vc");
+    public static SeckillKey getSeckillVertifyCode=new SeckillKey(300,"vc");
 }
