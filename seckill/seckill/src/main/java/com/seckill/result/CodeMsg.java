@@ -22,6 +22,8 @@ public class CodeMsg {
     public static CodeMsg MOBILE_ERROR=new CodeMsg(500213,"手机号格式错误!");
     public static CodeMsg MOBILE_NOTEXIST=new CodeMsg(500214,"手机号号码不存在!");
     public static CodeMsg PASSWORD_ERROR=new CodeMsg(500215,"密码错误!");
+    public static CodeMsg ADMIN_NOTEXIST=new CodeMsg(500216,"管理员账号不存在!");
+
     //订单模块异常
     public static CodeMsg ORDER_NOT_EXIST=new CodeMsg(500410,"订单不存在!");
     //秒杀模块异常

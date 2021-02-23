@@ -1,14 +1,17 @@
 package com.seckill.service;
 
+import com.seckill.dao.AdminDao;
 import com.seckill.dao.SeckillUserDao;
 import com.seckill.dao.UserDao;
 import com.seckill.exception.GlobalException;
+import com.seckill.pojo.Admin;
 import com.seckill.pojo.SeckillUser;
 import com.seckill.redis.RedisService;
 import com.seckill.redis.SeckillUserKey;
 import com.seckill.result.CodeMsg;
 import com.seckill.util.MD5Util;
 import com.seckill.util.UUIDUtil;
+import com.seckill.vo.LoginAdminVo;
 import com.seckill.vo.LoginVo;
 import com.seckill.vo.RegisterVo;
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +33,8 @@ public class SeckillUserService {
     RedisService redisService;
     @Autowired
     UserDao userDao;
+    @Autowired
+    AdminDao adminDao;
     public SeckillUser getById(long id){
         SeckillUser user = redisService.get(SeckillUserKey.getById, "" + id, SeckillUser.class);
        //先去缓存查数据
@@ -106,6 +111,26 @@ public class SeckillUserService {
         //网站根目录
         cookie.setPath("/");
         response.addCookie(cookie);
+        return true;
+    }
+    public boolean login_admin(HttpServletResponse response, LoginAdminVo loginAdminVo){
+        if(loginAdminVo == null){
+            throw new GlobalException(CodeMsg.ADMIN_NOTEXIST);
+        }
+        Admin admin =adminDao.getByName(loginAdminVo.getName());
+        try {
+            admin.getName();
+        }catch (Exception e){
+            throw new GlobalException(CodeMsg.ADMIN_NOTEXIST);
+        }
+        String name = admin.getName();
+        if(!name.equals(loginAdminVo.getName())){
+            throw new GlobalException(CodeMsg.ADMIN_NOTEXIST);
+        }
+        String password = admin.getPassword();
+        if(!password.equals(loginAdminVo.getPassword())){
+            throw new GlobalException(CodeMsg.PASSWORD_ERROR);
+        }
         return true;
     }
     public boolean register(HttpServletResponse response, RegisterVo loginVo){

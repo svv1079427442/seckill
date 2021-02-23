@@ -5,6 +5,7 @@ import com.seckill.redis.RedisService;
 import com.seckill.result.Result;
 import com.seckill.service.SeckillUserService;
 import com.seckill.service.UserService;
+import com.seckill.vo.LoginAdminVo;
 import com.seckill.vo.LoginVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ public class LoginController {
     //slf日志
     private static Logger log = LoggerFactory.getLogger(LoginController.class);
 
+
     @RequestMapping("/to_login")
     public String toLogin(SeckillUser user, Model model) {
             return "login";//返回页面login
@@ -40,6 +42,26 @@ public class LoginController {
         seckillUserService.login(response,loginVo);
         return Result.success(true);
     }
+    @RequestMapping("/to_login_admin")
+    public String toLogin_admin(SeckillUser user, Model model) {
+        return "login_admin";//返回页面login
+    }
+
+    /**
+     * 管理员登录
+     * @param response
+     * @param loginAdminVo
+     * @return
+     */
+    @RequestMapping("/do_login_admin")//异步登录
+    @ResponseBody
+    public Result<Boolean> doLogin_admin(HttpServletResponse response, @Valid LoginAdminVo loginAdminVo){
+        System.out.println("+++++++++++++++++++++++++++++开始管理员登录++++++++++++++++++++++++++++++++++++++");
+        log.info(loginAdminVo.toString());
+        seckillUserService.login_admin(response,loginAdminVo);
+        return Result.success(true);
+    }
+
     //使用JSR303校验
     @RequestMapping("/do_login_test")//作为异步操作
     @ResponseBody

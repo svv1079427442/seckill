@@ -3,12 +3,14 @@ D:\project\endproject\seckill\seckill\src\main\java\com\seckill\dao\GoodsDao.jav
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\service\OrderService.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\pojo\OrderInfo.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\pojo\User.java
+D:\project\endproject\seckill\seckill\src\main\java\com\seckill\controller\AdminController.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\rabbitmq\MQConfig.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\controller\DemoController.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\redis\RedisService.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\redis\SeckillKey.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\pojo\SeckillGoods.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\dao\OrderDao.java
+D:\project\endproject\seckill\seckill\src\main\java\com\seckill\dao\AdminDao.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\exception\GlobalException.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\redis\SeckillUserKey.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\pojo\SeckillUser.java
@@ -33,10 +35,12 @@ D:\project\endproject\seckill\seckill\src\main\java\com\seckill\controller\Secki
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\exception\GlobalExceptionHandler.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\util\IsMobileValidator.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\util\MD5Util.java
+D:\project\endproject\seckill\seckill\src\main\java\com\seckill\pojo\Admin.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\redis\OrderKey.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\vo\GoodsVo.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\config\UserArgumentResolvers.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\rabbitmq\MQSender.java
+D:\project\endproject\seckill\seckill\src\main\java\com\seckill\vo\LoginAdminVo.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\controller\GoodsController.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\dao\UserDao.java
 D:\project\endproject\seckill\seckill\src\main\java\com\seckill\util\IsMobile.java

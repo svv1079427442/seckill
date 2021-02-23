@@ -1,8 +1,11 @@
 package com.seckill.pojo;
 
+import org.hibernate.validator.constraints.Length;
+
 public class Goods {
     private Long id;
     private String goodsName;
+
     private String goodsTitle;
     private String goodsImg;
     private String goodsDetail;

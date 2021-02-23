@@ -1,5 +1,6 @@
 package com.seckill.controller;
 
+import com.seckill.pojo.Admin;
 import com.seckill.pojo.SeckillUser;
 import com.seckill.redis.GoodsKey;
 import com.seckill.redis.RedisService;
@@ -64,6 +65,36 @@ public class GoodsController {
             redisService.set(GoodsKey.getGoodsList,"",html);
         }
         return html;
+    }
+
+    /**
+     * 后台管理系统
+     * @param
+     * @param
+     * @param model
+     * @param adminUser
+     * @return
+     */
+    @RequestMapping(value = "/to_back")
+    public String toBackSystem(HttpServletRequest request,HttpServletResponse response,Model model, Admin adminUser){
+        /*//取缓存
+        String html = redisService.get(GoodsKey.getGoodsList, "", String.class);
+        if(!StringUtils.isEmpty(html)){//不为空直接返回
+            return html;
+        }
+        model.addAttribute("user",adminUser);
+        //查询商品列表
+        List<GoodsVo> list = goodsService.listGoodsVo();
+        model.addAttribute("goodsList",list);
+        System.out.println("*******************************"+list+"***************************");
+        //return "goods_list";
+        SpringWebContext springWebContext=new SpringWebContext(request,response,request.getServletContext(),request.getLocale(),model.asMap(),applicationContext);
+        //手动渲染
+        html=thymeleafViewResolver.getTemplateEngine().process("index",springWebContext);
+        if (!StringUtils.isEmpty(html)){
+            redisService.set(GoodsKey.getGoodsList,"",html);
+        }*/
+        return "index";
     }
     //测试使用
     @RequestMapping("/to_list_test")
