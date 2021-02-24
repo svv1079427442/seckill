@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/login")
 public class LoginController {
@@ -43,7 +45,9 @@ public class LoginController {
         return Result.success(true);
     }
     @RequestMapping("/to_login_admin")
-    public String toLogin_admin(SeckillUser user, Model model) {
+    public String toLogin_admin(SeckillUser user, Model model,HttpServletResponse response) throws IOException {
+        //response.getWriter().write("1");
+        System.out.println("调用****************");
         return "login_admin";//返回页面login
     }
 
