@@ -47,8 +47,7 @@ public class GoodsService {
         return goodsDao.reduceStock(g);
     }
 
-    public List<Goods> findPage(int page, int pageSize) {
-        PageHelper.startPage(page, pageSize);
+    public List<Goods> getList() {
         return adminDao.getGoodsList();
     }
 
@@ -65,25 +64,31 @@ public class GoodsService {
         return adminDao.update(id, goods_name, goods_title, goods_price, goods_stock);
     }
 
-    public PageInfo<Goods> getGoodsWithPage(Integer pageNum, Integer pageSize) {
+    public PageInfo getGoodsWithPage(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Goods> goodsList = adminDao.getGoodsList();
-        return new PageInfo<>(goodsList, 5);
+        return new PageInfo<>(goodsList);
     }
 
-    public PageInfo<SeckillGoods> getSeckillGoods(Integer pageNum, Integer pageSize) {
+    public PageInfo<SeckillGoods> getSeckillGoods(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<SeckillGoods> goodsList = adminDao.getSeckillGoods();
-        return new PageInfo<>(goodsList, 5);
+        return new PageInfo<>(goodsList);
     }
-    public PageInfo<OrderInfo> getOrderDetail(Integer pageNum, Integer pageSize) {
+    public PageInfo<OrderInfo> getOrderDetail(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<OrderInfo> goodsList = adminDao.getOrderDetail();
-        return new PageInfo<>(goodsList, 5);
+        return new PageInfo<>(goodsList);
     }
-    public PageInfo<SeckillOrder> getSeckillOrder(Integer pageNum, Integer pageSize) {
+    public PageInfo<SeckillOrder> getSeckillOrder(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<SeckillOrder> goodsList = adminDao.getSeckillOrder();
-        return new PageInfo<>(goodsList, 5);
+        return new PageInfo<>(goodsList);
+    }
+
+    public PageInfo<SeckillUser> getSeckillUser(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<SeckillUser> goodsList = adminDao.getSeckillUser();
+        return new PageInfo<>(goodsList);
     }
 }
