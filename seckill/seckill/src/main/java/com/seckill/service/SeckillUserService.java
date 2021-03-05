@@ -73,7 +73,12 @@ public class SeckillUserService {
         }
         //更新登录次数，最后一次登陆时间
         SeckillUser users = seckillUserDao.getById(Long.parseLong(loginVo.getMobile()));
-        users.setLoginCount(users.getLoginCount()+1);
+        if(users.getLoginCount()!=null){
+            users.setLoginCount(users.getLoginCount()+1);
+        }else {
+            users.setLoginCount(1);
+        }
+
         users.setLastLoginDate(new Date());
         users.setId(Long.parseLong(loginVo.getMobile()));
         seckillUserDao.updateLoginCount(users);

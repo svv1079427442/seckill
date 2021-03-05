@@ -9,6 +9,17 @@
     <script type="text/javascript" src="/js/common.js"></script>
     <!-- layer -->
     <script type="text/javascript" src="/layer/layer.js"></script>
+    <style type="text/css">
+        html,body{
+            height:100%;
+            width:100%;
+        }
+        body{
+            background:url('/img/detail_back.jpg') no-repeat;
+            background-size:100% 100%;
+            padding-top:100px;
+        }
+    </style>
 </head>
 <body>
 <div class="panel panel-default">
@@ -67,6 +78,11 @@
 </div>
 </body>
 <script>
+    //初始化时开始
+    $(function () {
+        //countDown();
+        getDetail();
+    });
     function getSeckillPath() {
         var goodsId = $("#goodsId").val();
         g_showLoading();
@@ -74,13 +90,15 @@
             url:"/seckill/path",
             type:"GET",
             data:{
-                goodsId:goodsId
+                goodsId:goodsId,
+                vertifyCode:$("#vertifyCode").val()
             },
             success:function (data) {
                 if (data.code==0){
                     var path = data.data;
                     doSeckill(path);
                 }else {
+
                     layer.msg(data.msg);
                 }
             },
@@ -149,11 +167,7 @@
             }
         });
     }
-    //初始化时开始
-    $(function () {
-        //countDown();
-        getDetail();
-    });
+
     function getQueryString(name){
         var reg=new RegExp("(^|&)"+name+"=([^&]*)(&|$)");
         var r=window.location.search.substr(1).match(reg);

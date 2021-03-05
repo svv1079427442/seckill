@@ -114,6 +114,19 @@ public class SeckillService {
         //将图片输出
         return image;
     }
+    /**
+     * 验证验证码，取缓存里面取得值，验证是否相等
+     */
+    public boolean checkVCode(SeckillUser user, Long goodsId, int vertifyCode) {
+        Integer redisVCode=redisService.get(SeckillKey.getSeckillVertifyCode, user.getId()+","+goodsId, Integer.class);
+        if(redisVCode==null||redisVCode-vertifyCode!=0) {
+            return false;
+        }
+        //删除缓存里面的数据
+        redisService.delete(SeckillKey.getSeckillVertifyCode, user.getId()+"_"+goodsId);
+        return true;
+    }
+
     private static char[] ops = new char[]{'+','-','*'};
     /**
      * 只做加减乘

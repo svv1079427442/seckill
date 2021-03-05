@@ -1,5 +1,6 @@
 package com.seckill.controller;
 
+import com.seckill.access.AccessLimit;
 import com.seckill.pojo.SeckillOrder;
 import com.seckill.pojo.SeckillUser;
 import com.seckill.rabbitmq.MQSender;
@@ -106,29 +107,7 @@ public class SeckillController implements InitializingBean {
         seckillMessage.setGoodsId(goodsId);
         mqSender.sendSeckillMessage(seckillMessage);
         return Result.success(0);//0代表排队中
-        /*//先判断库存
-        GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
-        int store=goods.getStockCount();
-        System.out.println("当前库存还有："+store);
-        if(store<=0){
-            System.out.println("********************sssssssssssss"+"没库存了");
-            //model.addAttribute("errormsg", CodeMsg.MIAOSHA_OVER_ERROR.getMsg());//秒杀完毕
-            return Result.error(CodeMsg.MIAOSHA_OVER_ERROR);
-        }
-        //判断是否秒杀到了
-        SeckillOrder order = orderService.getSeckillOrderByUserIdGoodsId(user.getId(),goods.getId());
-        if(order!=null){//用户已经秒杀，防止重复秒杀
-            //System.out.println(order.toString());
-            //model.addAttribute("errormsg",CodeMsg.REPEATE_MIAOSHA.getMsg());
-            //System.out.println("用户重复秒杀");
-            return Result.error(CodeMsg.REPEATE_MIAOSHA);
-        }
-        //减库存//下订单//写入秒杀订单
-        System.out.println("开始秒杀！！！");
-        OrderInfo orderInfo=seckillService.seckill(user,goods);
-        model.addAttribute("orderInfo",orderInfo);
-        model.addAttribute("goods",goods);
-        return Result.success(orderInfo);*/
+
     }
 
     /**
@@ -138,15 +117,26 @@ public class SeckillController implements InitializingBean {
      * @param goodsId
      * @return
      */
+    @AccessLimit(seconds=5,maxCount=5,needLogin=true)
     @RequestMapping(value = "/path",method = RequestMethod.GET)
     @ResponseBody
     public Result<String> getSeckillPath(HttpServletRequest request, SeckillUser user, Model model,
-                                         @RequestParam("goodsId") long goodsId) {
-        //long goodsId=1;
+                                         @RequestParam("goodsId") long goodsId,
+                                         @RequestParam(value = "vertifyCode" ,required = false,defaultValue = "0") int vertifyCode) {
+        System.out.println("********拦截器拦截请求，获取到秒杀地址*********");
         model.addAttribute("user", user);
         if (user == null) {
             return Result.error(CodeMsg.SESSION_ERROR);//返回页面login
         }
+        //验证验证码
+        System.out.println("商品id："+goodsId);
+        System.out.println("验证码输出："+vertifyCode);
+        boolean check=seckillService.checkVCode(user, goodsId,vertifyCode );
+        System.out.println("验证结果:"+check);
+        if(!check) {
+            return Result.error(CodeMsg.REQUEST_ILLEAGAL);
+        }
+        System.out.println("通过!");
         String path = seckillService.createSeckillPath(user,goodsId);
         return Result.success(path);
 
@@ -190,7 +180,8 @@ public class SeckillController implements InitializingBean {
             return Result.error(CodeMsg.SECKILL_FAIL);
         }
     }
-   /* //post与get区别，get是幂等的无论调用多少次，服务端都一样，从服务端获取数据
+   /*
+    //post与get区别，get是幂等的无论调用多少次，服务端都一样，从服务端获取数据
     //post不是幂等的，向服务端提交数据。
     @RequestMapping(value = "/do_seckill",method = RequestMethod.POST)
     @ResponseBody
