@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -72,7 +73,36 @@ public class AdminController {
         String html = thymeleafViewResolver.getTemplateEngine().process("goods_list_back", springWebContext);
         return html;
     }
-
+    /**
+     * 商品添加页面
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/add", produces = "text/html")
+    @ResponseBody
+    public String to_good_add(HttpServletRequest request, HttpServletResponse response, Model model) {
+        String id = request.getParameter("id");
+        System.out.println("获取编号id为：" + id);
+        SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        String html = thymeleafViewResolver.getTemplateEngine().process("add", springWebContext);
+        return html;
+    }
+    /**
+     * 商品详情页面
+     *
+     * @param model
+     * @return
+     */
+    @PostMapping(value = "/good_add", produces = "text/html")
+    @ResponseBody
+    public String good_add(HttpServletRequest request, HttpServletResponse response, Model model) {
+        System.out.println("++++商品添加++++");
+        SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        String html = thymeleafViewResolver.getTemplateEngine().process("add", springWebContext);
+        return html;
+    }
     /**
      * 秒杀商品详情页面
      *
@@ -198,7 +228,7 @@ public class AdminController {
     }
 
     /**
-     *
+     * 修改提交
      */
     @RequestMapping(value = "/update_submit", produces = "text/html")
     @ResponseBody
@@ -214,6 +244,41 @@ public class AdminController {
         int goods_stock = Integer.parseInt(request.getParameter("goods_stock"));
         System.out.println("获取的goods_stock为：" + goods_stock);
         int result = goodsService.update(id, goods_name, goods_title, goods_price, goods_stock);
+        response.getWriter().write("1");
+    }
+    /**
+     * 添加提交
+     */
+    @RequestMapping(value = "/add_submit", produces = "text/html")
+    @ResponseBody
+    public void add_submit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String goods_name = request.getParameter("goods_name");
+        String goods_price = request.getParameter("goods_price");
+        String image = request.getParameter("goods_image");
+        String goods_title = request.getParameter("goods_detail");
+        String seckill_count = request.getParameter("seckill_count");
+        System.out.println("进入++++++++++++++++++++++++");
+        String substring = image.substring(12, image.length());
+        String goods_image="/img/"+substring;
+        System.out.println("获取到添加的商品名称为："+goods_name);
+        System.out.println("获取到添加的商品价格为："+goods_price);
+        System.out.println("获取到添加的商品图片为："+goods_image);
+        System.out.println("获取到添加的商品详情为："+goods_title);
+        System.out.println("获取到添加的商品库存为："+seckill_count);
+
+        BigDecimal price=new BigDecimal(goods_price);
+        goodsService.addGood(goods_name,goods_title,price,Integer.valueOf(seckill_count),goods_image);
+       /* int id = Integer.parseInt(request.getParameter("goods_id"));
+        System.out.println("获取的id为：" + id);
+        String goods_name = request.getParameter("goods_name");
+        System.out.println("获取的goods_name为：" + goods_name);
+        String goods_title = request.getParameter("goods_title");
+        System.out.println("获取的goods_title为：" + goods_title);
+        BigDecimal goods_price = new BigDecimal(request.getParameter("goods_price"));
+        System.out.println("获取的goods_price为：" + goods_price);
+        int goods_stock = Integer.parseInt(request.getParameter("goods_stock"));
+        System.out.println("获取的goods_stock为：" + goods_stock);
+        int result = goodsService.update(id, goods_name, goods_title, goods_price, goods_stock);*/
         response.getWriter().write("1");
     }
 }

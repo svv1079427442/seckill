@@ -91,4 +91,11 @@ public class GoodsService {
         List<SeckillUser> goodsList = adminDao.getSeckillUser();
         return new PageInfo<>(goodsList);
     }
+
+    /**
+     * 添加商品@Param("goods_name") String goods_name, @Param("goods_detail") String goods_detail, @Param("goods_price") BigDecimal goods_price,@Param("goods_stock") int goods_stock
+     */
+    public void addGood(String goods_name,String goods_title,BigDecimal goods_price,int goods_stock,String goods_img){
+        adminDao.add_goods(goods_name, goods_title, goods_price, goods_stock, goods_img);
+    }
 }
