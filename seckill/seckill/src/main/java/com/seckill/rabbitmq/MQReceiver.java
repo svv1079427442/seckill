@@ -49,6 +49,7 @@ public class MQReceiver {
 		}
 		//减库存//下订单//写入秒杀订单
 		seckillService.seckill(seckillUser,goods);
+		
 	}
 
 

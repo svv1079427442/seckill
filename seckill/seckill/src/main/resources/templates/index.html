@@ -62,13 +62,13 @@
                     </ul>
                 </li>
 
-                <li class="layui-nav-item"> <a href="javascript:;">admin</a>
+                <li class="layui-nav-item"> <a href="javascript:;" th:text="${name}"></a>
                     <dl class="layui-nav-child">
                         <!-- 二级菜单 -->
-                        <dd><a href="javascript:;"  onclick="one_set('个人信息','one_set.html','1000','600')">个人信息</a>
+                        <dd><a href="javascript:;"  onclick="one_set('个人信息','admin_set','1000','600')">个人信息</a>
                         </dd>
                         <dd><a href="">切换帐号</a></dd>
-                        <dd><a href="javascript:;" onclick="logout()">退出</a></dd>
+                        <dd><a href="javascript:;" onclick="loginout()">退出</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item x-index"><a href="#"></a></li>
@@ -85,7 +85,7 @@
                 <img th:src="@{/./images/tx.jpg}" class="userAvatar" style="display: block;width: 100%;height: 100%;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;border: 4px solid #44576b;box-sizing: border-box;">
             </a>
             <p style=" display: block;width: 100%;height: 25px;color: #ffffff;text-align: center;font-size: 12px;white-space: nowrap;line-height: 25px;overflow: hidden;">
-                <span class="userName">admin</span>
+                <span class="userName" th:text="${name}"></span>
             </p>
         </div>
         <div class="layui-side-scroll">
@@ -150,7 +150,7 @@
                 <img th:src="@{/./images/tx.jpg}" class="userAvatar" style="display: block;width: 100%;height: 100%;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;border: 4px solid #44576b;box-sizing: border-box;">
             </a>
             <p style=" display: block;width: 100%;height: 25px;color: #ffffff;text-align: center;font-size: 12px;white-space: nowrap;line-height: 25px;overflow: hidden;">
-                你好！<span class="userName">xiyuan</span>, 欢迎回来
+                你好！<span class="userName" th:text="${name}"></span>, 欢迎回来
             </p>
         </div>
     </div>
@@ -169,10 +169,10 @@
     <div class="site-mobile-shade"> </div>
 </div>
 
-<script src="/lib/layui/layui.js" charset="utf-8"></script>
-<script src="/js/main.js"></script>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/x-layui.js" charset="utf-8"></script>
+<script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/x-layui.js}" charset="utf-8"></script>
 
 <script>
     $(".daohang").click(function(){
@@ -201,9 +201,9 @@
      * 退出登陆
      * 2019年8月17日19:43:15
      */
-    function logout() {
-
-        $.ajax({
+    function loginout() {
+        window.location.href='/login/to_login_admin';
+        /*$.ajax({
             type:"post",
             url:"/login/to_login_admin",
             data:{e:1},
@@ -213,7 +213,7 @@
                 if(data=="1"){
                     alert("111");
                     layer.msg(data.info,{icon:1,time:1000});
-                    setTimeout("window.location.href='xxxx'",2000);return false;
+                    setTimeout("window.location.href='/login/to_login_admin'",2000);return false;
                     return false;
                 }else{
                     layer.msg(data.info,{icon:5,time:2000});return false;
@@ -221,7 +221,7 @@
             }
 
         })
-        return false;
+        return false;*/
     }
 
     function one_set(title,url,w,h){

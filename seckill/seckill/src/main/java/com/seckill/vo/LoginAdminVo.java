@@ -25,4 +25,12 @@ public class LoginAdminVo {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "LoginAdminVo{" +
+                "name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

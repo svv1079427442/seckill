@@ -30,10 +30,12 @@ public interface AdminDao {
     public List<OrderInfo> getOrderDetail();
     @Select("select * from seckill_order")
     public List<SeckillOrder> getSeckillOrder();
-    @Select("select * from seckill_user where id<17300000050")
+    @Select("select * from seckill_user")
     public List<SeckillUser> getSeckillUser();
     @Insert("insert into goods(goods_name,goods_img,goods_stock,goods_price,goods_title) values(#{goods_name},#{goods_img},#{goods_stock},#{goods_price},#{goods_detail})")
     public void add_goods(@Param("goods_name") String goods_name, @Param("goods_title") String goods_title, @Param("goods_price") BigDecimal goods_price,@Param("goods_stock") int goods_stock,@Param("goods_img") String goods_img);
+    @Select("select * from goods where goods_title like '%${name}%'")
+    public List<Goods> getByGoodsName(@Param("name") String name);
     /* @Insert("insert into seckill_user (id,pwd,nickname,salt,register_date) values(#{mobile},#{password},#{nickname},#{salt},#{register_date})")
     public boolean insert_into(RegisterVo loginVo);*/
 }

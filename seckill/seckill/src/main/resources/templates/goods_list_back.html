@@ -53,10 +53,10 @@
                     <input class="layui-input" placeholder="截止日" id="LAY_demorange_e">
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" name="username"  placeholder="请输入登录名" autocomplete="off" class="layui-input">
+                    <input type="text" name="good_name_search"  placeholder="请输入商品名" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-input-inline" style="width:80px">
-                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                    <button class="layui-btn"  type="button" lay-filter="sreach" onclick="search()"><i class="layui-icon">&#xe615;</i></button>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
         <button class="layui-btn" href="javascript:;" th:onclick="|admin_add('添加','add','1000','600')|" style="text-decoration:none"><i class="layui-icon">&#xe608;</i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge" th:text="${pageInfo.total}"></span> 条</span>
     </xblock>
-    <table class="layui-table">
+    <table class="layui-table" id="tableid">
         <thead>
         <tr>
             <th>
@@ -335,6 +335,23 @@
             $(obj).parents("tr").remove();
             layer.msg('已删除!',{icon:1,time:1000});
         });
+    }
+    /*搜索*/
+    function search(){
+        var goods_name= $("input[name='good_name_search']").val();;
+            $.ajax({
+                type:"post",
+                url:"/admin/search",
+                data:{goods_name:goods_name},
+                dataType:"html",
+                success:function(data){
+                    alert("success");
+                    $(body).html(data);
+                },
+                error:function (data) {
+                    alert("fail");
+                }
+            });
     }
 </script>
 

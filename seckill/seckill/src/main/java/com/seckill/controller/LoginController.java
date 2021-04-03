@@ -15,7 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 
@@ -59,10 +61,13 @@ public class LoginController {
      */
     @RequestMapping("/do_login_admin")//异步登录
     @ResponseBody
-    public Result<Boolean> doLogin_admin(HttpServletResponse response, @Valid LoginAdminVo loginAdminVo){
+    public Result<Boolean> doLogin_admin(HttpServletResponse response, HttpServletRequest request, @Valid LoginAdminVo loginAdminVo, Model model){
         System.out.println("+++++++++++++++++++++++++++++开始管理员登录++++++++++++++++++++++++++++++++++++++");
         log.info(loginAdminVo.toString());
         seckillUserService.login_admin(response,loginAdminVo);
+        HttpSession session = request.getSession();
+        session.setAttribute("admin", loginAdminVo.getName());
+        System.out.println("管理员信息："+loginAdminVo.toString());
         return Result.success(true);
     }
 

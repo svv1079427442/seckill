@@ -1,12 +1,16 @@
 package com.seckill.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.seckill.pojo.*;
+import com.seckill.result.Result;
 import com.seckill.service.GoodsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +20,13 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.swing.text.html.HTML;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -32,8 +40,16 @@ public class AdminController {
     ApplicationContext applicationContext;
 
     @RequestMapping("/home")
-    public String toHome(Admin admin, Model model) {
-        return "index";
+    @ResponseBody
+    public String Home(Admin admin, Model model, HttpServletRequest request,HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        Object admin1 = session.getAttribute("admin");
+        System.out.println("管理员信息————："+admin1);
+        model.addAttribute("name",admin1);
+        SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        String html = thymeleafViewResolver.getTemplateEngine().process("index", springWebContext);
+        return html;
     }
 
     /**
@@ -46,6 +62,7 @@ public class AdminController {
     @RequestMapping("/welcome")
     public String toWelcome(Admin admin, Model model) {
         return "welcome";
+
     }
 
     /**
@@ -250,7 +267,6 @@ public class AdminController {
      * 添加提交
      */
     @RequestMapping(value = "/add_submit", produces = "text/html")
-    @ResponseBody
     public void add_submit(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String goods_name = request.getParameter("goods_name");
         String goods_price = request.getParameter("goods_price");
@@ -260,25 +276,56 @@ public class AdminController {
         System.out.println("进入++++++++++++++++++++++++");
         String substring = image.substring(12, image.length());
         String goods_image="/img/"+substring;
-        System.out.println("获取到添加的商品名称为："+goods_name);
-        System.out.println("获取到添加的商品价格为："+goods_price);
-        System.out.println("获取到添加的商品图片为："+goods_image);
-        System.out.println("获取到添加的商品详情为："+goods_title);
-        System.out.println("获取到添加的商品库存为："+seckill_count);
-
         BigDecimal price=new BigDecimal(goods_price);
         goodsService.addGood(goods_name,goods_title,price,Integer.valueOf(seckill_count),goods_image);
-       /* int id = Integer.parseInt(request.getParameter("goods_id"));
-        System.out.println("获取的id为：" + id);
-        String goods_name = request.getParameter("goods_name");
-        System.out.println("获取的goods_name为：" + goods_name);
-        String goods_title = request.getParameter("goods_title");
-        System.out.println("获取的goods_title为：" + goods_title);
-        BigDecimal goods_price = new BigDecimal(request.getParameter("goods_price"));
-        System.out.println("获取的goods_price为：" + goods_price);
-        int goods_stock = Integer.parseInt(request.getParameter("goods_stock"));
-        System.out.println("获取的goods_stock为：" + goods_stock);
-        int result = goodsService.update(id, goods_name, goods_title, goods_price, goods_stock);*/
         response.getWriter().write("1");
+    }
+    /**
+     * 搜索提交
+     */
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    //@ResponseBody
+    public String serach(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam(defaultValue = "1", value = "pageNum") int pageNum, @RequestParam(defaultValue = "3", value = "pageSize") int pageSize) {
+        String goods_name = request.getParameter("goods_name");
+        System.out.println("获取到的商品名11："+goods_name);
+        PageHelper.startPage(pageNum,pageSize);
+        List<Goods> goodsList = goodsService.getByGoodsName(goods_name);
+
+        System.out.println("结果集："+goodsList.toString());
+        for (Goods list:goodsList) {
+            System.out.println(list.toString());
+        }
+        PageInfo<Goods> goodsPageInfo = new PageInfo<>(goodsList);
+        System.out.println("当前页"+pageNum);
+        System.out.println("每页条数"+pageSize);
+        System.out.println("一共有：" + goodsPageInfo.getPages() + "页");
+        List<Goods> list = goodsPageInfo.getList();
+        System.out.println("**商品列表**：" + list);
+        model.addAttribute("goodsList", list);
+        model.addAttribute("pageInfo", goodsPageInfo);
+        //SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        //String html = thymeleafViewResolver.getTemplateEngine().process("goods_list_back_search", springWebContext);
+        return "goods_list_back_search";
+    }
+
+    /**
+     * 管理员个人中心
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping(value = "/admin_set", produces = "text/html")
+    @ResponseBody
+    public String admin_set(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam(defaultValue = "1", value = "pageNum") int pageNum, @RequestParam(defaultValue = "5", value = "pageSize") int pageSize) {
+        HttpSession session = request.getSession();
+        Object admin1 = session.getAttribute("admin");
+        String name = admin1.toString();
+        Admin admin = goodsService.getByAdName(name);
+        model.addAttribute("adminInfo",admin);
+        SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        String html = thymeleafViewResolver.getTemplateEngine().process("admin_set", springWebContext);
+        return html;
     }
 }

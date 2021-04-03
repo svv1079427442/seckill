@@ -98,4 +98,10 @@ public class GoodsService {
     public void addGood(String goods_name,String goods_title,BigDecimal goods_price,int goods_stock,String goods_img){
         adminDao.add_goods(goods_name, goods_title, goods_price, goods_stock, goods_img);
     }
+    public List<Goods> getByGoodsName(String name){
+        return adminDao.getByGoodsName(name);
+    }
+    public Admin getByAdName(String name){
+      return   adminDao.getByName(name);
+    }
 }

@@ -113,23 +113,23 @@
 
             </td>
 
-            <td th:text="${goods.registerDate}">
+            <td th:text="${#dates.format(goods.registerDate,'yyyy-MM-dd HH:mm:ss')}">
 
             </td>
-            <td th:text="${goods.lastLoginDate}">
-
-            </td>
-
-            <td th:text="${goods.loginCount}">
+            <td th:text="${#dates.format(goods.lastLoginDate,'yyyy-MM-dd HH:mm:ss')}">
 
             </td>
 
             <td th:text="${goods.loginCount}">
+
+            </td>
+
+            <td th:text="上海市">
 
             </td>
 
             <td class="td-status">
-                <span class="layui-btn layui-btn-normal " onclick="start(this,'2',0)"> 显示 </span>
+                <span class="layui-btn layui-btn-normal " onclick="start(this,'2',0)"> 已激活 </span>
             </td>
 
             <td class="td-manage">
@@ -249,7 +249,7 @@
         layer.confirm('确认要停用吗？',function(index){
             //发异步把用户状态进行更改
             $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="admin_start(this,id)" href="javascript:;" title="启用"><i class="layui-icon">&#xe62f;</i></a>');
-            $(obj).parents("tr").find(".td-status").html('<span class="layui-btn layui-btn-disabled layui-btn-mini">已下线</span>');
+            $(obj).parents("tr").find(".td-status").html('<span class="layui-btn layui-btn-disabled layui-btn-mini">已禁用</span>');
             $(obj).remove();
             layer.msg('已停用!',{icon: 5,time:1000});
         });

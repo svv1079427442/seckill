@@ -5,6 +5,7 @@ import java.util.Date;
 public class OrderInfo {
     private Long id;
     private Long userId;
+    private String userName;
     private Long goodsId;
     private Long deliveryAddrId;
     private String goodsName;
@@ -29,6 +30,14 @@ public class OrderInfo {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Long getGoodsId() {
@@ -115,6 +124,7 @@ public class OrderInfo {
         return "OrderInfo{" +
                 "id=" + id +
                 ", userId=" + userId +
+                ", userName='" + userName + '\'' +
                 ", goodsId=" + goodsId +
                 ", deliveryAddrId=" + deliveryAddrId +
                 ", goodsName='" + goodsName + '\'' +

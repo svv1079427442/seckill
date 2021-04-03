@@ -78,4 +78,17 @@ public class Goods {
 
     private Integer IsSeckill;
 
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "id=" + id +
+                ", goodsName='" + goodsName + '\'' +
+                ", goodsTitle='" + goodsTitle + '\'' +
+                ", goodsImg='" + goodsImg + '\'' +
+                ", goodsDetail='" + goodsDetail + '\'' +
+                ", goodsPrice=" + goodsPrice +
+                ", goodsStock=" + goodsStock +
+                ", IsSeckill=" + IsSeckill +
+                '}';
+    }
 }

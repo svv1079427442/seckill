@@ -121,11 +121,11 @@
 
             </td>
 
-            <td th:text="${goods.startDate}">
+            <td th:text="${#dates.format(goods.startDate,'yyyy-MM-dd HH:mm:ss')}">
 
             </td>
 
-            <td th:text="${goods.endDate}">
+            <td th:text="${#dates.format(goods.endDate,'yyyy-MM-dd HH:mm:ss')}">
 
             </td>
 

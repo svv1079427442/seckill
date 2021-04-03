@@ -122,6 +122,9 @@
             <td th:text="${goods.userId}">
 
             </td>
+            <td th:text="${goods.userName}">
+
+            </td>
 
             <td th:text="${goods.goodsId}">
 
@@ -130,9 +133,6 @@
 
             </td>
 
-            <td th:text="${goods.goodsName}">
-
-            </td>
 
             <td th:text="${goods.goodsCount}">
 
@@ -146,7 +146,7 @@
 
             </td>
 
-            <td th:text="${goods.createDate}">
+            <td th:text="${#dates.format(goods.createDate,'yyyy-MM-dd HH:mm:ss')}">
 
             </td>
             <td class="td-status">
