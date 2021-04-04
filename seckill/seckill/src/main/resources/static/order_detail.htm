@@ -13,6 +13,7 @@
      -->
     <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
     <style type="text/css">
         html,body{
             height:100%;
@@ -48,20 +49,16 @@
             <tr>
                 <td>订单状态</td>
                 <td id="orderStatus"><!-- 根据数值，做显示判断 -->
-                    <!--<span if="${orderInfo.status eq 0}">未支付</span>
-                    <span if="${orderInfo.status eq 1}">代发货</span>
-                    <span if="${orderInfo.status eq 2}">已发货</span>
-                    <span if="${orderInfo.status eq 3}">已收货</span>
-                    <span if="${orderInfo.status eq 4}">已退款</span>
-                    <span if="${orderInfo.status eq 5}">已完成</span>-->
+                    <span if="${orderInfo.status eq 0}">未支付</span>
+                    <span if="${orderInfo.status eq 1}">已支付</span>
                 </td>
                 <td>						<!-- 如果上面是未支付，那么下面会生成一个立即支付的按钮 -->
-                    <button class="btn btn-primary btn-block" type="submit" id="payButton">立即支付</button>
+                    <button class="btn btn-primary btn-block" type="submit" id="payButton" onclick="pay()">立即支付</button>
                 </td>
             </tr>
             <tr>
                 <td>收货人</td>
-                <td colspan="2">Sun  17368666386</td>
+                <td colspan="2">Sun  17310726386</td>
             </tr>
             <tr>
                 <td>收货地址</td>
@@ -116,7 +113,7 @@
         if(order.status==0){
             $("#orderStatus").text("未支付");
         }else if(order.status==1){
-            $("#orderStatus").text("待发货");
+            $("#orderStatus").text("订单已支付，代发货");
         }else if(order.status==2){
             $("#orderStatus").text("已发货");
         }else if(order.status==3){
@@ -133,6 +130,43 @@
             return unescape(r[2]);
         }
         return null;
+    }
+
+    /**
+     * 立即支付
+     */
+    function pay() {
+        $.ajax({
+            url:"/order/pay_status",
+            type:"GET",
+            data:{
+                status:1
+            },
+            success:function (data) {
+                if (data.code==0){
+                    var result = data.data;
+                    if(result < 0){
+                        layer.msg("对不起，秒杀失败")
+                    }else {
+                        layer.msg("立即支付此订单？",{
+                                btn:["是","否"],
+                                time: 20000
+                            },
+                            function () {
+                                window.location.reload();
+                            },
+                            function () {
+                                layer.close()
+                            });
+                    }
+                }else {
+                    layer.msg(data.msg);
+                }
+            },
+            error:function () {
+                layer.msg("请求有误！1");
+            }
+        });
     }
 </script>
 </html>

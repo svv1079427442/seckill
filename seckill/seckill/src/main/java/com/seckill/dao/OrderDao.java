@@ -16,7 +16,8 @@ public interface OrderDao {
     public void insertSeckillOrder(SeckillOrder seckillOrder);
     @Select("select * from order_info where id =#{orderId}")
     OrderInfo getOrderById(long orderId);
-
+    @Update("update order_info set status = #{status}")
+    public int update_status(int status);
     //public long select_orderId()
 
 

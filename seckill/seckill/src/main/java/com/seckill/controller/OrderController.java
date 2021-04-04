@@ -10,11 +10,15 @@ import com.seckill.service.OrderService;
 import com.seckill.vo.GoodsVo;
 import com.seckill.vo.OrderDetailVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/order")
@@ -44,5 +48,19 @@ public class OrderController {
         vo.setOrder(order);
         //System.out.println("*********srrr*****"+order.toString());
         return Result.success(vo);
+    }
+
+    /**
+     * 支付
+     * @param model
+     * @param info
+     * @return
+     */
+    @RequestMapping(value = "/pay_status", method = RequestMethod.GET)
+    @ResponseBody
+    public Result<Integer> pay(Model model, OrderInfo info, HttpServletRequest request) {
+        String status = request.getParameter("status");
+        int result = orderService.update_status(Integer.parseInt(status));
+        return Result.success(result);
     }
 }

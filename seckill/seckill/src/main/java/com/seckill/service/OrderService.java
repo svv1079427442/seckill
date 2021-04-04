@@ -52,6 +52,9 @@ public class OrderService {
         return orderInfo;
 
     }
+    public int update_status(int status){
+        return orderDao.update_status(status);
+    }
 
 
 }
