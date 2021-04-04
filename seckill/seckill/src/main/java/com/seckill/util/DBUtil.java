@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class DBUtil {
     public static Connection getConn() {
         String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://192.168.112.111:3306/seckill";
+        String url = "jdbc:mysql://localhost:3306/seckill";
         String username = "root";
-        String password = "root";
+        String password = "123456";
         Connection conn = null;
         try {
             Class.forName(driver); //classLoader,加载对应驱动

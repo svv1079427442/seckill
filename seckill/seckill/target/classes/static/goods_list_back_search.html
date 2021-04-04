@@ -56,7 +56,7 @@
                     <input type="text" name="good_name_search"  placeholder="请输入商品名" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-input-inline" style="width:80px">
-                    <button class="layui-btn"  type="button" lay-filter="sreach" onclick="search()"><i class="layui-icon">&#xe615;</i></button>
+                    <button class="layui-btn"  type="submit" lay-filter="sreach" onclick="search()"><i class="layui-icon">&#xe615;</i></button>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
         <button class="layui-btn" href="javascript:;" th:onclick="|admin_add('添加','add','1000','600')|" style="text-decoration:none"><i class="layui-icon">&#xe608;</i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge" th:text="${pageInfo.total}"></span> 条</span>
     </xblock>
-    <table class="layui-table" id="tableid">
+    <table class="layui-table">
         <thead>
         <tr>
             <th>
@@ -155,12 +155,12 @@
     </div>
     <!-- 分页导航条 -->
     <div class="pagenation">
-        <a th:href="@{/admin/goods_detail/}"><span class="btn-page btn-default">首页</span></a>
-        <a th:href="@{/admin/goods_detail/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"><span
+        <a th:href="@{/admin/search/}"><span class="btn-page btn-default">首页</span></a>
+        <a th:href="@{/admin/search/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"><span
                 class="btn-page btn-default">上一页</span></a>
         <!-- 遍历导航页 -->
         <a th:each="page,pageStat:${pageInfo.navigatepageNums}"
-           th:href="@{/admin/goods_detail/(pageNum=${page})}">
+           th:href="@{/admin/search/(pageNum=${page})}">
                                         <span th:if="${page}==${pageInfo.pageNum}">
                                             <span class="btn-page btn-active" th:text="${page}"></span>
                                         </span>
@@ -170,9 +170,9 @@
         </a>
         <!-- 导航页 -->
 
-        <a th:href="@{/admin/goods_detail/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"><span
+        <a th:href="@{/admin/search/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"><span
                 class="btn-page btn-default">下一页</span></a>
-        <a th:href="@{/admin/goods_detail/(pageNum=${pageInfo.pages})}"><span class="btn-page btn-default">尾页</span></a>
+        <a th:href="@{/admin/search/(pageNum=${pageInfo.pages})}"><span class="btn-page btn-default">尾页</span></a>
     </div>
 </div>
 <script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
@@ -343,13 +343,15 @@
                 type:"post",
                 url:"/admin/search",
                 data:{goods_name:goods_name},
-                dataType:"html",
+                dataType:"json",
                 success:function(data){
-                    alert("success");
-                    window.location.href="/admin/search_res?goods_name="+goods_name;
+                    alert(data.toString());
+                    console.log(data);
                 },
                 error:function (data) {
-                    alert("fail");
+                    alert("异常"+data);
+                    alert(data);
+
                 }
             });
     }
