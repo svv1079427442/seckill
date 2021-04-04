@@ -189,7 +189,7 @@ public class AdminController {
      */
     @GetMapping(value = "/seckill_user", produces = "text/html")
     @ResponseBody
-    public String toUserList(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum, @RequestParam(defaultValue = "7", value = "pageSize") Integer pageSize) {
+    public String toUserList(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum, @RequestParam(defaultValue = "5", value = "pageSize") Integer pageSize) {
         PageInfo<SeckillUser> pageInfo = goodsService.getSeckillUser(pageNum, pageSize);
         System.out.println("一共有：" + pageInfo.getPages() + "页");
         List<SeckillUser> list = pageInfo.getList();
@@ -284,8 +284,8 @@ public class AdminController {
      * 搜索提交
      */
     @RequestMapping(value = "/search",method = RequestMethod.POST)
-    //@ResponseBody
-    public String serach(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam(defaultValue = "1", value = "pageNum") int pageNum, @RequestParam(defaultValue = "3", value = "pageSize") int pageSize) {
+    @ResponseBody
+    public String serach(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam(defaultValue = "1", value = "pageNum") int pageNum, @RequestParam(defaultValue = "3", value = "pageSize") int pageSize) throws ServletException, IOException {
         String goods_name = request.getParameter("goods_name");
         System.out.println("获取到的商品名11："+goods_name);
         PageHelper.startPage(pageNum,pageSize);
@@ -306,9 +306,38 @@ public class AdminController {
         //SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
         //手动渲染
         //String html = thymeleafViewResolver.getTemplateEngine().process("goods_list_back_search", springWebContext);
+        //request.getRequestDispatcher("goods_list_back_search.html").forward(request,response);
         return "goods_list_back_search";
     }
+    /**
+     * 搜索提交
+     */
+    @RequestMapping(value = "/search_res",method = RequestMethod.GET)
 
+    public String serach_res(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam(defaultValue = "1", value = "pageNum") int pageNum, @RequestParam(defaultValue = "3", value = "pageSize") int pageSize) throws ServletException, IOException {
+        String goods_name = request.getParameter("goods_name");
+        System.out.println("获取到的商品名11："+goods_name);
+        PageHelper.startPage(pageNum,pageSize);
+        List<Goods> goodsList = goodsService.getByGoodsName(goods_name);
+
+        System.out.println("结果集："+goodsList.toString());
+        for (Goods list:goodsList) {
+            System.out.println(list.toString());
+        }
+        PageInfo<Goods> goodsPageInfo = new PageInfo<>(goodsList);
+        System.out.println("当前页"+pageNum);
+        System.out.println("每页条数"+pageSize);
+        System.out.println("一共有：" + goodsPageInfo.getPages() + "页");
+        List<Goods> list = goodsPageInfo.getList();
+        System.out.println("**商品列表**：" + list);
+        model.addAttribute("goodsList", list);
+        model.addAttribute("pageInfo", goodsPageInfo);
+        //SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        //String html = thymeleafViewResolver.getTemplateEngine().process("goods_list_back_search", springWebContext);
+        //request.getRequestDispatcher("goods_list_back_search.html").forward(request,response);
+        return "goods_list_back_search";
+    }
     /**
      * 管理员个人中心
      *

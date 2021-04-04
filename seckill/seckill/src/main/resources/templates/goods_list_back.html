@@ -346,7 +346,7 @@
                 dataType:"html",
                 success:function(data){
                     alert("success");
-                    $(body).html(data);
+                    window.location.href="/admin/search_res?goods_name="+goods_name;
                 },
                 error:function (data) {
                     alert("fail");

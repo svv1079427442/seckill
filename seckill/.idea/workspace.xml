@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="417246df-a81a-40b0-82fd-651c39cf4c72" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/seckill/src/main/resources/templates/admin_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/AdminDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/AdminDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/service/GoodsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/java/com/seckill/service/GoodsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/com/seckill/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/com/seckill/controller/AdminController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/com/seckill/dao/AdminDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/com/seckill/dao/AdminDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/com/seckill/service/GoodsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/com/seckill/service/GoodsService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seckill/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seckill/src/main/resources/templates/goods_list_back.html" beforeDir="false" afterPath="$PROJECT_DIR$/seckill/src/main/resources/templates/goods_list_back.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/seckill/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/goods_list_back.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="352" column="17" selection-start-line="352" selection-start-column="17" selection-end-line="352" selection-end-column="17" />
+            <state relative-caret-position="364">
+              <caret line="348" column="59" selection-start-line="348" selection-start-column="59" selection-end-line="348" selection-end-column="59" />
               <folding>
                 <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#1;n#xblock#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -50,11 +43,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/AdminController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="352" column="29" selection-start-line="352" selection-start-column="29" selection-end-line="352" selection-end-column="29" />
+            <state relative-caret-position="28">
+              <caret line="187" column="14" lean-forward="true" selection-start-line="187" selection-start-column="14" selection-end-line="187" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/8.5.23/tomcat-embed-core-8.5.23.jar!/javax/servlet/RequestDispatcher.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -110,24 +112,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/goods_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1259" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/admin_list.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-15">
-              <caret line="30" column="18" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
-            </state>
+            <state relative-caret-position="-84" />
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/static/goods_list_back_search.html">
+        <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/admin_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+            <state relative-caret-position="377">
+              <caret line="38" column="6" lean-forward="true" selection-start-line="38" selection-start-column="6" selection-end-line="38" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -184,6 +177,11 @@
   <component name="Git.Settings">
     <option name="UPDATE_CHANGES_POLICY" value="SHELVE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="test" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -233,12 +231,12 @@
         <option value="$PROJECT_DIR$/seckill/src/main/java/com/seckill/rabbitmq/MQReceiver.java" />
         <option value="$PROJECT_DIR$/seckill/src/main/resources/static/goods_detail.htm" />
         <option value="$PROJECT_DIR$/seckill/src/main/resources/templates/goods_list_back_search.html" />
-        <option value="$PROJECT_DIR$/seckill/src/main/resources/templates/goods_list_back.html" />
         <option value="$PROJECT_DIR$/seckill/src/main/resources/templates/index.html" />
         <option value="$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/AdminDao.java" />
         <option value="$PROJECT_DIR$/seckill/src/main/java/com/seckill/service/GoodsService.java" />
-        <option value="$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/AdminController.java" />
         <option value="$PROJECT_DIR$/seckill/src/main/resources/templates/admin_list.html" />
+        <option value="$PROJECT_DIR$/seckill/src/main/resources/templates/goods_list_back.html" />
+        <option value="$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/AdminController.java" />
       </list>
     </option>
   </component>
@@ -265,9 +263,9 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="472" />
-    <option name="y" value="37" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="233" />
+    <option name="y" value="23" />
     <option name="width" value="1604" />
     <option name="height" value="894" />
   </component>
@@ -443,7 +441,7 @@
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1617504059200" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1617507093373" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Demo" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -603,7 +601,7 @@
       <workItem from="1616761617156" duration="1322000" />
       <workItem from="1616909824102" duration="5789000" />
       <workItem from="1617458497950" duration="5784000" />
-      <workItem from="1617502426427" duration="1543000" />
+      <workItem from="1617502426427" duration="4472000" />
     </task>
     <task id="LOCAL-00001" summary="修复redis预减库存问题">
       <created>1611665441006</created>
@@ -675,16 +673,23 @@
       <option name="project" value="LOCAL" />
       <updated>1617464732544</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="后台管理系统开发商品管理—管理员列表添加">
+      <created>1617504111266</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1617504111266</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="473421000" />
+    <option name="totallyTimeSpent" value="476350000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="378" y="30" width="1283" height="715" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24244899" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19906166" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -694,7 +699,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.498503" visible="true" weight="0.33962265" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.498503" visible="true" weight="0.28045326" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.31187123" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -712,7 +717,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24932976" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.21632653" />
+      <window_info active="true" anchor="right" id="Maven" order="3" visible="true" weight="0.17761394" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Database" order="6" />
@@ -822,20 +827,14 @@
     <MESSAGE value="后台管理系统开发商品管理分页查询开发完成备份" />
     <MESSAGE value="后台管理系统开发商品管理—添加商品" />
     <MESSAGE value="后台管理系统开发商品管理—搜索返回html页面加载问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="后台管理系统开发商品管理—搜索返回html页面加载问题" />
+    <MESSAGE value="后台管理系统开发商品管理—管理员列表添加" />
+    <option name="LAST_COMMIT_MESSAGE" value="后台管理系统开发商品管理—管理员列表添加" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.m2/repository/org/springframework/spring-web/4.3.13.RELEASE/spring-web-4.3.13.RELEASE.jar!/org/springframework/web/filter/RequestContextFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="41" selection-start-line="41" selection-end-line="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.m2/repository/org/springframework/spring-web/4.3.13.RELEASE/spring-web-4.3.13.RELEASE.jar!/org/springframework/web/filter/HttpPutFormContentFilter.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
@@ -1115,27 +1114,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/goods_list_back_search.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="158" column="35" selection-start-line="158" selection-start-column="35" selection-end-line="158" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/goods_list_back.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="352" column="17" selection-start-line="352" selection-start-column="17" selection-end-line="352" selection-end-column="17" />
-          <folding>
-            <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#1;n#xblock#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#1;n#td#8;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="307">
@@ -1162,23 +1140,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/AdminDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/AdminController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="352" column="29" selection-start-line="352" selection-start-column="29" selection-end-line="352" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/goods_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1259" />
+        <state relative-caret-position="-84" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/admin_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="38" column="6" lean-forward="true" selection-start-line="38" selection-start-column="6" selection-end-line="38" selection-end-column="6" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/pojo/Admin.java">
@@ -1188,10 +1159,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/admin_list.html">
+    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/dao/AdminDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15">
-          <caret line="30" column="18" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
+        <state relative-caret-position="185">
+          <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/8.5.23/tomcat-embed-core-8.5.23.jar!/javax/servlet/RequestDispatcher.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/goods_list_back_search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="158" column="35" selection-start-line="158" selection-start-column="35" selection-end-line="158" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seckill/src/main/resources/templates/goods_list_back.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="348" column="59" selection-start-line="348" selection-start-column="59" selection-end-line="348" selection-end-column="59" />
+          <folding>
+            <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#xblock#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#1;n#td#8;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seckill/src/main/java/com/seckill/controller/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="187" column="14" lean-forward="true" selection-start-line="187" selection-start-column="14" selection-end-line="187" selection-end-column="14" />
         </state>
       </provider>
     </entry>
