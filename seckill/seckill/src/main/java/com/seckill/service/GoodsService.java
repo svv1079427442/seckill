@@ -51,6 +51,9 @@ public class GoodsService {
         return adminDao.getGoodsList();
     }
 
+    public List<Admin> getAdminList() {
+        return adminDao.getAdminList();
+    }
     public int del_goods(int id) {
         return adminDao.delGoods(id);
     }

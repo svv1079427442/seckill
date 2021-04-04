@@ -18,6 +18,8 @@ public interface AdminDao {
     public void insert_admin(Admin admin);
     @Select("select * from goods")
     public List<Goods> getGoodsList();
+    @Select("select * from admin")
+    public List<Admin> getAdminList();
     @Delete("delete from goods where id =#{id}")
     public int delGoods(@Param("id") int id);
     @Select("select * from goods where id=#{id}")

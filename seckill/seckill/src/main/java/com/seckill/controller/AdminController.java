@@ -328,4 +328,33 @@ public class AdminController {
         String html = thymeleafViewResolver.getTemplateEngine().process("admin_set", springWebContext);
         return html;
     }
+
+    /**
+     * 管理员列表
+     * @param request
+     * @param response
+     * @param model
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GetMapping(value = "/admin_list", produces = "text/html")
+    @ResponseBody
+    public String admin_list(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam(defaultValue = "1", value = "pageNum") int pageNum, @RequestParam(defaultValue = "5", value = "pageSize") int pageSize) {
+
+        PageHelper.startPage(pageNum,pageSize);
+        List<Admin> goodsList = goodsService.getAdminList();
+        PageInfo<Admin> goodsPageInfo = new PageInfo<>(goodsList);
+        System.out.println("当前页"+pageNum);
+        System.out.println("每页条数"+pageSize);
+        System.out.println("一共有：" + goodsPageInfo.getPages() + "页");
+        List<Admin> list = goodsPageInfo.getList();
+        System.out.println("**管理员列表**：" + list);
+        model.addAttribute("adminList", list);
+        model.addAttribute("pageInfo", goodsPageInfo);
+        SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        String html = thymeleafViewResolver.getTemplateEngine().process("admin_list", springWebContext);
+        return html;
+    }
 }
