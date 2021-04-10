@@ -39,19 +39,13 @@
               <a><cite>商品管理</cite></a>
               <a><cite>商品列表</cite></a>
             </span>
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  onclick="back_todetail()" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
     <form class="layui-form x-center" action="" style="width:80%">
         <div class="layui-form-pane" style="margin-top: 15px;">
             <div class="layui-form-item">
-                <label class="layui-form-label">日期范围</label>
-                <div class="layui-input-inline">
-                    <input class="layui-input" placeholder="开始日" id="LAY_demorange_s">
-                </div>
-                <div class="layui-input-inline">
-                    <input class="layui-input" placeholder="截止日" id="LAY_demorange_e">
-                </div>
+
                 <div class="layui-input-inline">
                     <input type="text" name="good_name_search"  placeholder="请输入商品名" autocomplete="off" class="layui-input">
                 </div>
@@ -155,12 +149,12 @@
     </div>
     <!-- 分页导航条 -->
     <div class="pagenation">
-        <a th:href="@{/admin/search/}"><span class="btn-page btn-default">首页</span></a>
-        <a th:href="@{/admin/search/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"><span
+        <a th:href="@{/admin/search_res/}"><span class="btn-page btn-default">首页</span></a>
+        <a th:href="@{/admin/search_res/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"><span
                 class="btn-page btn-default">上一页</span></a>
         <!-- 遍历导航页 -->
         <a th:each="page,pageStat:${pageInfo.navigatepageNums}"
-           th:href="@{/admin/search/(pageNum=${page})}">
+           th:href="@{/admin/search_res/(pageNum=${page})}">
                                         <span th:if="${page}==${pageInfo.pageNum}">
                                             <span class="btn-page btn-active" th:text="${page}"></span>
                                         </span>
@@ -170,9 +164,9 @@
         </a>
         <!-- 导航页 -->
 
-        <a th:href="@{/admin/search/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"><span
+        <a th:href="@{/admin/search_res/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"><span
                 class="btn-page btn-default">下一页</span></a>
-        <a th:href="@{/admin/search/(pageNum=${pageInfo.pages})}"><span class="btn-page btn-default">尾页</span></a>
+        <a th:href="@{/admin/search_res/(pageNum=${pageInfo.pages})}"><span class="btn-page btn-default">尾页</span></a>
     </div>
 </div>
 <script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
@@ -345,15 +339,18 @@
                 data:{goods_name:goods_name},
                 dataType:"json",
                 success:function(data){
-                    alert(data.toString());
-                    console.log(data);
+                    //alert(data.toString());
+                    //console.log(data);
                 },
                 error:function (data) {
                     alert("异常"+data);
-                    alert(data);
+                    //alert(data);
 
                 }
             });
+    }
+    function back_todetail() {
+        window.location.href="/admin/goods_detail";
     }
 </script>
 

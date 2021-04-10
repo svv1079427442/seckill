@@ -32,13 +32,14 @@ public class UserUtil {
             user.setHead("/user/useri.png");
             user.setSalt("1q2w3e4r");
             user.setPwd(MD5Util.inputPassToDBPass("123456", user.getSalt()));
+            user.setDeliveryaddress("上海市徐汇区");
             users.add(user);
         }
         System.out.println("craete users ----insert to db");
         //插入数据库
         Connection conn=DBUtil.getConn();
-        String sql="insert into seckill_user (login_count,nickname,register_date,salt,pwd,id,head,last_login_date) values"
-                + "(?,?,?,?,?,?,?,?)";
+        String sql="insert into seckill_user (login_count,nickname,register_date,salt,pwd,id,head,last_login_date,delivery_address) values"
+                + "(?,?,?,?,?,?,?,?,?)";
         PreparedStatement pstmt=conn.prepareStatement(sql);
 
         //生成用户
@@ -53,6 +54,7 @@ public class UserUtil {
             pstmt.setLong(6,user.getId());
             pstmt.setString(7, user.getHead());
             pstmt.setTimestamp(8,new Timestamp(user.getLastLoginDate().getTime()));
+            pstmt.setString(9,user.getDeliveryaddress());
             pstmt.addBatch();
         }
         pstmt.executeBatch();

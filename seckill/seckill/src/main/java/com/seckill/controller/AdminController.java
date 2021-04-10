@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.seckill.pojo.*;
+import com.seckill.result.CodeMsg;
 import com.seckill.result.Result;
 import com.seckill.service.GoodsService;
 
@@ -24,10 +25,7 @@ import javax.servlet.http.HttpSession;
 import javax.swing.text.html.HTML;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -193,7 +191,9 @@ public class AdminController {
         PageInfo<SeckillUser> pageInfo = goodsService.getSeckillUser(pageNum, pageSize);
         System.out.println("一共有：" + pageInfo.getPages() + "页");
         List<SeckillUser> list = pageInfo.getList();
-        System.out.println(list.toString());
+       // System.out.println(list.toArray());
+        Object[] array = list.toArray();
+        System.out.println(array[1]);
         model.addAttribute("goodsList", list);
         model.addAttribute("pageInfo", pageInfo);
         SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
@@ -201,14 +201,80 @@ public class AdminController {
         String html = thymeleafViewResolver.getTemplateEngine().process("seckill_user", springWebContext);
         return html;
     }
+
+    /**
+     * 用户列表查询
+     * @param request
+     * @param response
+     * @param model
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/userList_search", produces = "text/html")
+    @ResponseBody
+    public String user_search(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum, @RequestParam(defaultValue = "5", value = "pageSize") Integer pageSize) {
+        String mobile = request.getParameter("mobile");
+        long id = Long.valueOf(mobile);
+        PageInfo<SeckillUser> pageInfo = goodsService.getSeckillUserByIdOrUsername(pageNum, pageSize,id);
+        System.out.println("一共有：" + pageInfo.getPages() + "页");
+        List<SeckillUser> list = pageInfo.getList();
+        model.addAttribute("goodsList", list);
+        model.addAttribute("pageInfo", pageInfo);
+        return "seckill_user_search";
+    }
+    /**
+     * 用户列表查询结果
+     * @param request
+     * @param response
+     * @param model
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GetMapping(value = "/userList_search_res")
+    public String user_search_res(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum, @RequestParam(defaultValue = "5", value = "pageSize") Integer pageSize) {
+        String mobile = request.getParameter("mobile");
+        long id = Long.valueOf(mobile);
+        PageInfo<SeckillUser> pageInfo = goodsService.getSeckillUserByIdOrUsername(pageNum, pageSize,id);
+        System.out.println("一共有：" + pageInfo.getPages() + "页");
+        List<SeckillUser> list = pageInfo.getList();
+        model.addAttribute("goodsList", list);
+        model.addAttribute("pageInfo", pageInfo);
+        return "seckill_user_search";
+    }
+
+    /**
+     * 删除商品
+     * @param request
+     * @param response
+     * @param model
+     * @throws ServletException
+     * @throws IOException
+     */
     @RequestMapping(value = "/del", produces = "text/html")
     @ResponseBody
-    public void del(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
+    public void del(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         goodsService.del_goods(id);
         response.getWriter().write("true");
     }
 
+    /**
+     * 删除用户
+     * @param request
+     * @param response
+     * @param model
+     * @throws ServletException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/del_user", produces = "text/html")
+    @ResponseBody
+    public void del_user(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+        long id = Long.valueOf(request.getParameter("id"));
+        goodsService.del_User(id);
+        response.getWriter().write("1");
+    }
     @GetMapping(value = "/update/{id}", produces = "text/html")
     @ResponseBody
     public String to_update(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable String id) throws IOException {
@@ -223,7 +289,7 @@ public class AdminController {
     }
 
     /**
-     * 复现修改内容
+     * 商品列表_复现修改内容
      *
      * @param request
      * @param response
@@ -243,13 +309,34 @@ public class AdminController {
         String html = thymeleafViewResolver.getTemplateEngine().process("update", springWebContext);
         return html;
     }
+    /**
+     * 用户列表_复现修改内容
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/update_user", produces = "text/html")
+    @ResponseBody
+    public String fuxian_update_user(HttpServletRequest request, HttpServletResponse response, Model model) {
+        long id = Long.valueOf(request.getParameter("id"));
+        System.out.println("获取编号id为：" + id);
+        SeckillUser list = goodsService.getUserById(id);
+        model.addAttribute("userList", list);
+        SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        String html = thymeleafViewResolver.getTemplateEngine().process("update_user", springWebContext);
+        return html;
+    }
 
     /**
-     * 修改提交
+     * 修改提交_商品列表
      */
     @RequestMapping(value = "/update_submit", produces = "text/html")
     @ResponseBody
-    public void submit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public Result<Integer> submit(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("goods_id"));
         System.out.println("获取的id为：" + id);
         String goods_name = request.getParameter("goods_name");
@@ -261,6 +348,18 @@ public class AdminController {
         int goods_stock = Integer.parseInt(request.getParameter("goods_stock"));
         System.out.println("获取的goods_stock为：" + goods_stock);
         int result = goodsService.update(id, goods_name, goods_title, goods_price, goods_stock);
+        return Result.success(result);
+    }
+    /**
+     * 修改提交_用户
+     */
+    @RequestMapping(value = "/submit_user", produces = "text/html")
+    @ResponseBody
+    public void submit_user(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        long id = Long.valueOf(request.getParameter("user_id"));
+        String nickname = request.getParameter("user_name");
+        String address = request.getParameter("address");
+        int result = goodsService.update_user(id, nickname, address);
         response.getWriter().write("1");
     }
     /**
@@ -281,7 +380,7 @@ public class AdminController {
         response.getWriter().write("1");
     }
     /**
-     * 搜索提交
+     * 搜索
      */
     @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseBody
@@ -303,10 +402,6 @@ public class AdminController {
         System.out.println("**商品列表**：" + list);
         model.addAttribute("goodsList", list);
         model.addAttribute("pageInfo", goodsPageInfo);
-        //SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
-        //手动渲染
-        //String html = thymeleafViewResolver.getTemplateEngine().process("goods_list_back_search", springWebContext);
-        //request.getRequestDispatcher("goods_list_back_search.html").forward(request,response);
         return "goods_list_back_search";
     }
     /**
@@ -319,7 +414,6 @@ public class AdminController {
         System.out.println("获取到的商品名11："+goods_name);
         PageHelper.startPage(pageNum,pageSize);
         List<Goods> goodsList = goodsService.getByGoodsName(goods_name);
-
         System.out.println("结果集："+goodsList.toString());
         for (Goods list:goodsList) {
             System.out.println(list.toString());
@@ -332,10 +426,6 @@ public class AdminController {
         System.out.println("**商品列表**：" + list);
         model.addAttribute("goodsList", list);
         model.addAttribute("pageInfo", goodsPageInfo);
-        //SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
-        //手动渲染
-        //String html = thymeleafViewResolver.getTemplateEngine().process("goods_list_back_search", springWebContext);
-        //request.getRequestDispatcher("goods_list_back_search.html").forward(request,response);
         return "goods_list_back_search";
     }
     /**

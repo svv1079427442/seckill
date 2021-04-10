@@ -29,6 +29,7 @@ public class CodeMsg {
     //秒杀模块异常
     public static CodeMsg MIAOSHA_OVER_ERROR=new CodeMsg(500500,"商品秒杀完毕，库存不足!");
     public static CodeMsg REPEATE_MIAOSHA=new CodeMsg(500500,"不能重复秒杀!");
+    public static CodeMsg ALREADY_REMOVE=new CodeMsg(500500,"已删除!");
     public CodeMsg(int code,String msg) {
         this.code=code;
         this.msg=msg;

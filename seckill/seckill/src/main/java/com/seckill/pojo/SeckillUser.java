@@ -11,6 +11,7 @@ public class SeckillUser {
     private Date registerDate;
     private Date lastLoginDate;
     private Integer loginCount;
+    private String deliveryaddress;
 
     public Long getId() {
         return id;
@@ -76,6 +77,14 @@ public class SeckillUser {
         this.loginCount = loginCount;
     }
 
+    public String getDeliveryaddress() {
+        return deliveryaddress;
+    }
+
+    public void setDeliveryaddress(String deliveryaddress) {
+        this.deliveryaddress = deliveryaddress;
+    }
+
     @Override
     public String toString() {
         return "SeckillUser{" +
@@ -87,6 +96,7 @@ public class SeckillUser {
                 ", registerDate=" + registerDate +
                 ", lastLoginDate=" + lastLoginDate +
                 ", loginCount=" + loginCount +
+                ", deliveryaddress='" + deliveryaddress + '\'' +
                 '}';
     }
 }

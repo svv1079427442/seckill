@@ -45,13 +45,7 @@
     <form class="layui-form x-center" action="" style="width:80%">
         <div class="layui-form-pane" style="margin-top: 15px;">
             <div class="layui-form-item">
-                <label class="layui-form-label">日期范围</label>
-                <div class="layui-input-inline">
-                    <input class="layui-input" placeholder="开始日" id="LAY_demorange_s">
-                </div>
-                <div class="layui-input-inline">
-                    <input class="layui-input" placeholder="截止日" id="LAY_demorange_e">
-                </div>
+
                 <div class="layui-input-inline">
                     <input type="text" name="good_name_search"  placeholder="请输入商品名" autocomplete="off" class="layui-input">
                 </div>
@@ -345,11 +339,11 @@
                 data:{goods_name:goods_name},
                 dataType:"html",
                 success:function(data){
-                    alert("success");
+                    //alert("success");
                     window.location.href="/admin/search_res?goods_name="+goods_name;
                 },
                 error:function (data) {
-                    alert("fail");
+                    alert("fail"+data);
                 }
             });
     }

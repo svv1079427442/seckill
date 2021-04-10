@@ -58,13 +58,25 @@ public class GoodsService {
         return adminDao.delGoods(id);
     }
 
+    public int del_User(long id) {
+        return adminDao.delUser(id);
+    }
+
     public Goods getById(int id) {
 
         return adminDao.getById(id);
     }
 
+    public SeckillUser getUserById(long id) {
+
+        return adminDao.getUserById(id);
+    }
     public int update(int id, String goods_name, String goods_title, BigDecimal goods_price, int goods_stock) {
         return adminDao.update(id, goods_name, goods_title, goods_price, goods_stock);
+    }
+
+    public int update_user(long id, String nickname, String delivery_address) {
+        return adminDao.update_user(id,nickname,delivery_address);
     }
 
     public PageInfo getGoodsWithPage(int pageNum, int pageSize) {
@@ -92,9 +104,16 @@ public class GoodsService {
     public PageInfo<SeckillUser> getSeckillUser(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<SeckillUser> goodsList = adminDao.getSeckillUser();
+        Object[] objects = goodsList.toArray();
+        System.out.println("service: "+objects[1]);
         return new PageInfo<>(goodsList);
     }
 
+    public PageInfo<SeckillUser> getSeckillUserByIdOrUsername(int pageNum, int pageSize, long id) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<SeckillUser> goodsList = adminDao.getSeckillUserByIdOrUsername(id);
+        return new PageInfo<>(goodsList);
+    }
     /**
      * 添加商品@Param("goods_name") String goods_name, @Param("goods_detail") String goods_detail, @Param("goods_price") BigDecimal goods_price,@Param("goods_stock") int goods_stock
      */
