@@ -59,15 +59,11 @@ public class SeckillController implements InitializingBean {
             localOverMap.put(goods.getId(),false);
         }
     }
-
-
-
     @RequestMapping(value = "/{path}/do_seckill",method = RequestMethod.POST)
     @ResponseBody
     public Result<Integer> seckill(SeckillUser user, Model model,
                                    @RequestParam(value = "goodsId",defaultValue = "0") long goodsId,
                                    @PathVariable("path") String path) {
-        System.out.println("*************************"+ "开始验证秒杀地址" +"*************************");
         model.addAttribute("user",user);
         if (user == null) {
             return Result.error(CodeMsg.SESSION_ERROR);//返回页面login
@@ -92,22 +88,18 @@ public class SeckillController implements InitializingBean {
         }
         //redis预减库存
         Long stock = redisService.decr(GoodsKey.getSeckillGoodsStock, "" + goodsId);
-        System.out.println("同一用户执行了第二次");
-        System.out.println("库存数量stock："+stock);
         //判断库存数量
         if(stock < 0){
             //置为true代表redis库存空了
             localOverMap.put(goodsId,true);
             return Result.error(CodeMsg.MIAOSHA_OVER_ERROR);
         }
-
         //入队
         SeckillMessage seckillMessage = new SeckillMessage();
         seckillMessage.setUser(user);
         seckillMessage.setGoodsId(goodsId);
         mqSender.sendSeckillMessage(seckillMessage);
         return Result.success(0);//0代表排队中
-
     }
 
     /**

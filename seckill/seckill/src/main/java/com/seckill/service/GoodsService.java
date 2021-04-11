@@ -126,4 +126,7 @@ public class GoodsService {
     public Admin getByAdName(String name){
       return   adminDao.getByName(name);
     }
+    public Goods getGoodsImg(long id){
+        return goodsDao.getGoodsImg(id);
+    }
 }

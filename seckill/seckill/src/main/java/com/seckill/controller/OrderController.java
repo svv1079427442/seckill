@@ -1,5 +1,7 @@
 package com.seckill.controller;
 
+import com.seckill.exception.GlobalException;
+import com.seckill.pojo.Goods;
 import com.seckill.pojo.OrderInfo;
 import com.seckill.pojo.SeckillUser;
 import com.seckill.redis.RedisService;
@@ -9,6 +11,7 @@ import com.seckill.service.GoodsService;
 import com.seckill.service.OrderService;
 import com.seckill.vo.GoodsVo;
 import com.seckill.vo.OrderDetailVo;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -60,7 +63,24 @@ public class OrderController {
     @ResponseBody
     public Result<Integer> pay(Model model, OrderInfo info, HttpServletRequest request) {
         String status = request.getParameter("status");
+        String address = request.getParameter("address");
+        String mobile = request.getParameter("mobile");
+        int res = orderService.update_address(address, Long.valueOf(mobile));
+        if (address.equals("")){
+            throw new GlobalException(CodeMsg.ADDRESS_NOT_WRITE);
+        }
         int result = orderService.update_status(Integer.parseInt(status));
         return Result.success(result);
+    }
+    @RequestMapping(value = "/to_order_detail", method = RequestMethod.GET)
+    public String to_detail(Model model,HttpServletRequest request){
+        long id = Long.valueOf(request.getParameter("id"));
+        OrderInfo order = orderService.getOrderByUserId(id);
+        Long goodsId = order.getGoodsId();
+        Goods goods = goodsService.getGoodsImg(goodsId);
+        System.out.println("订单信息为："+order.toString());
+        model.addAttribute("orderInfo",order);
+        model.addAttribute("goods",goods);
+        return "order_detail";
     }
 }

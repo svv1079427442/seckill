@@ -10,26 +10,28 @@ public class CodeMsg {
     private String msg;
     //通用异常
     public static CodeMsg SUCCESS=new CodeMsg(0,"success");
-    public static CodeMsg SERVER_ERROR=new CodeMsg(500100,"服务端异常!！！！！！！！");
+    public static CodeMsg SERVER_ERROR=new CodeMsg(500100,"服务端异常！！！！！！！");
     public static CodeMsg BIND_ERROR=new CodeMsg(500101,"参数校验异常:%s");
-    public static CodeMsg REQUEST_ILLEAGAL=new CodeMsg(500102,"非法请求!");
-    public static CodeMsg SECKILL_FAIL=new CodeMsg(500103,"秒杀失败!");
-    public static CodeMsg ACCESS_LIMIT=new CodeMsg(500104,"达到访问限制次数，访问太频繁!");
+    public static CodeMsg REQUEST_ILLEAGAL=new CodeMsg(500102,"非法请求 !");
+    public static CodeMsg SECKILL_FAIL=new CodeMsg(500103,"秒杀失败 !");
+    public static CodeMsg ACCESS_LIMIT=new CodeMsg(500104,"达到访问限制次数，访问太频繁 !");
     //登录模块异常
-    public static CodeMsg SESSION_ERROR=new CodeMsg(500210,"session失效!");
-    public static CodeMsg PASSWORD_EMPTY=new CodeMsg(500211,"密码不能为空!");
-    public static CodeMsg MOBILE_EMPTY=new CodeMsg(500212,"手机号不能为空!");
-    public static CodeMsg MOBILE_ERROR=new CodeMsg(500213,"手机号格式错误!");
-    public static CodeMsg MOBILE_NOTEXIST=new CodeMsg(500214,"手机号号码不存在!");
-    public static CodeMsg PASSWORD_ERROR=new CodeMsg(500215,"密码错误!");
-    public static CodeMsg ADMIN_NOTEXIST=new CodeMsg(500216,"管理员账号不存在!");
-
+    public static CodeMsg SESSION_ERROR=new CodeMsg(500210,"session失效 !");
+    public static CodeMsg PASSWORD_EMPTY=new CodeMsg(500211,"密码不能为空 !");
+    public static CodeMsg MOBILE_EMPTY=new CodeMsg(500212,"手机号不能为空 !");
+    public static CodeMsg MOBILE_ERROR=new CodeMsg(500213,"手机号格式错误 !");
+    public static CodeMsg MOBILE_NOTEXIST=new CodeMsg(500214,"手机号号码不存在 !");
+    public static CodeMsg PASSWORD_ERROR=new CodeMsg(500215,"密码错误 !");
+    public static CodeMsg ADMIN_NOTEXIST=new CodeMsg(500216,"管理员账号不存在 !");
+    public static CodeMsg MOBILE_EXIST=new CodeMsg(500217,"该手机号码已注册 !");
+    public static CodeMsg MOBILE_NOTREGISTER=new CodeMsg(500217,"该手机号码还未注册 !");
     //订单模块异常
-    public static CodeMsg ORDER_NOT_EXIST=new CodeMsg(500410,"订单不存在!");
+    public static CodeMsg ORDER_NOT_EXIST=new CodeMsg(500410,"订单不存在 !");
+    public static CodeMsg ADDRESS_NOT_WRITE=new CodeMsg(500411,"地址尚未填写 !");
     //秒杀模块异常
-    public static CodeMsg MIAOSHA_OVER_ERROR=new CodeMsg(500500,"商品秒杀完毕，库存不足!");
-    public static CodeMsg REPEATE_MIAOSHA=new CodeMsg(500500,"不能重复秒杀!");
-    public static CodeMsg ALREADY_REMOVE=new CodeMsg(500500,"已删除!");
+    public static CodeMsg MIAOSHA_OVER_ERROR=new CodeMsg(500500,"商品秒杀完毕，库存不足 !");
+    public static CodeMsg REPEATE_MIAOSHA=new CodeMsg(500500,"不能重复秒杀 !");
+    public static CodeMsg ALREADY_REMOVE=new CodeMsg(500500,"已删除 !");
     public CodeMsg(int code,String msg) {
         this.code=code;
         this.msg=msg;

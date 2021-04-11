@@ -32,7 +32,6 @@ public class OrderService {
         //设置order表的信息 （详细信息）
         OrderInfo orderInfo = new OrderInfo();
         orderInfo.setCreateDate(new Date());
-        orderInfo.setDeliveryAddrId(0L);
         orderInfo.setGoodsCount(1);
         orderInfo.setGoodsName(goods.getGoodsName());
         orderInfo.setGoodsId(goods.getId());
@@ -40,12 +39,14 @@ public class OrderService {
         orderInfo.setOrderChannel(1);
         orderInfo.setStatus(0);//0代表未支付
         orderInfo.setUserId(user.getId());
+        orderInfo.setUserName(user.getNickname());
         orderDao.insert(orderInfo);
         //设置秒杀order表
         SeckillOrder seckillOrder=new SeckillOrder();
         seckillOrder.setGoodsId(goods.getId());
         seckillOrder.setOrderId(orderInfo.getId());
         seckillOrder.setUserId(user.getId());
+
         orderDao.insertSeckillOrder(seckillOrder);
         redisService.set(OrderKey.getSeckillOrderByUidAndGid,""+user.getId()+"_"+goods.getId(),seckillOrder);
 
@@ -56,5 +57,11 @@ public class OrderService {
         return orderDao.update_status(status);
     }
 
+    public int update_address(String address,long id){
+        return orderDao.update_address(address,id);
+    }
 
+    public OrderInfo getOrderByUserId(long id){
+        return orderDao.getOrderByUserId(id);
+    }
 }

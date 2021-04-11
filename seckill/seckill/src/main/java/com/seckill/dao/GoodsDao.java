@@ -4,6 +4,7 @@ import com.seckill.pojo.Goods;
 import com.seckill.pojo.SeckillGoods;
 import com.seckill.vo.GoodsVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
@@ -20,4 +21,6 @@ public interface GoodsDao {
     GoodsVo getGoodsVoByGoodsId(@PathVariable("goodsId") long goodsId);
     @Update("update seckill_goods set stock_count = stock_count-1 where goods_id=#{goodsId} and stock_count > 0")
     public boolean reduceStock(SeckillGoods g);
+    @Select("select * from goods where id = #{id}")
+    public Goods getGoodsImg(@Param("id") long id);
 }

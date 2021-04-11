@@ -7,7 +7,6 @@ public class OrderInfo {
     private Long userId;
     private String userName;
     private Long goodsId;
-    private Long deliveryAddrId;
     private String goodsName;
     private Integer goodsCount;
     private Double goodsPrice;
@@ -16,6 +15,7 @@ public class OrderInfo {
     private Date createDate;
     private Date payDate;
     private int status;
+    private String deliveryAddress;
     public Long getId() {
         return id;
     }
@@ -46,14 +46,6 @@ public class OrderInfo {
 
     public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
-    }
-
-    public Long getDeliveryAddrId() {
-        return deliveryAddrId;
-    }
-
-    public void setDeliveryAddrId(Long deliveryAddrId) {
-        this.deliveryAddrId = deliveryAddrId;
     }
 
     public String getGoodsName() {
@@ -119,6 +111,14 @@ public class OrderInfo {
         this.status = status;
     }
 
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
     @Override
     public String toString() {
         return "OrderInfo{" +
@@ -126,7 +126,6 @@ public class OrderInfo {
                 ", userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", goodsId=" + goodsId +
-                ", deliveryAddrId=" + deliveryAddrId +
                 ", goodsName='" + goodsName + '\'' +
                 ", goodsCount=" + goodsCount +
                 ", goodsPrice=" + goodsPrice +
@@ -135,6 +134,7 @@ public class OrderInfo {
                 ", createDate=" + createDate +
                 ", payDate=" + payDate +
                 ", status=" + status +
+                ", deliveryAddress='" + deliveryAddress + '\'' +
                 '}';
     }
 }

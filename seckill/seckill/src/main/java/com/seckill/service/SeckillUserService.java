@@ -68,6 +68,7 @@ public class SeckillUserService {
         return true;
     }
     public boolean login(HttpServletResponse response, LoginVo loginVo){
+
         if(loginVo == null){
             throw new GlobalException(CodeMsg.SERVER_ERROR);
         }
@@ -146,6 +147,12 @@ public class SeckillUserService {
         //验证
         String formPass = loginVo.getPassword();
         String mobile = loginVo.getMobile();
+        String username = loginVo.getNickname();
+        long id = Long.valueOf(mobile);
+        SeckillUser user = userDao.getByMobile(id);
+        if(user.getId().equals(id)){
+            throw  new GlobalException(CodeMsg.MOBILE_EXIST);
+        }
         //验证密码
         //计算二次md5
         String dbsalt="1q2w3e4r";
@@ -153,9 +160,12 @@ public class SeckillUserService {
         System.out.println("formPass:" + formPass);
         System.out.println("tmppass:" + tmppass);
         loginVo.setPassword(tmppass);
-        loginVo.setNickname("user"+mobile.substring(9,11));
+        //loginVo.setNickname("user"+mobile.substring(9,11));
         loginVo.setSalt(dbsalt);
         loginVo.setRegister_date(new Date());
+        loginVo.setNickname(username);
+        System.out.println("用户为"+username);
+        System.out.println("手机号为"+mobile);
         boolean insert = userDao.insert_into(loginVo);
         System.out.println("插入结果："+insert);
         return insert;

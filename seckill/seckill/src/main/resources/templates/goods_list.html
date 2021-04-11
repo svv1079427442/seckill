@@ -18,7 +18,7 @@
     <!-- common.js -->
     <script th:src="@{/js/common.js}" type="text/javascript"></script>
     <style type="text/css">
-        html, body {
+        body {
             height: 100%;
             width: 100%;
             background:url('/img/goods_back.jpg') no-repeat;
@@ -46,7 +46,7 @@
         </tr>
         <tr th:each="goods,goodsStat : ${goodsList}" style="height:100%;background-color:rgba(222,222,222,0.8)">
             <td th:text="${goods.goodsName}"></td>
-            <td><img height="100" th:src="@{${goods.goodsImg}}" width="70"/></td>
+            <td><img height="100" th:src="@{${goods.goodsImg}}" width="65"/></td>
             <td th:text="${goods.goodsPrice}"></td>
             <td th:text="${goods.seckillPrice}"></td>
             <td th:text="${goods.stockCount}"></td>
