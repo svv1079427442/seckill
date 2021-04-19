@@ -32,8 +32,6 @@ public class LoginController {
     SeckillUserService seckillUserService;
     //slf日志
     private static Logger log = LoggerFactory.getLogger(LoginController.class);
-
-
     @RequestMapping("/to_login")
     public String toLogin(SeckillUser user, Model model) {
             return "login";//返回页面login
@@ -48,11 +46,8 @@ public class LoginController {
     }
     @RequestMapping("/to_login_admin")
     public String toLogin_admin(SeckillUser user, Model model,HttpServletResponse response) throws IOException {
-        //response.getWriter().write("1");
-        System.out.println("调用****************");
         return "login_admin";//返回页面login
     }
-
     /**
      * 管理员登录
      * @param response
@@ -62,15 +57,12 @@ public class LoginController {
     @RequestMapping("/do_login_admin")//异步登录
     @ResponseBody
     public Result<Boolean> doLogin_admin(HttpServletResponse response, HttpServletRequest request, @Valid LoginAdminVo loginAdminVo, Model model){
-        System.out.println("+++++++++++++++++++++++++++++开始管理员登录++++++++++++++++++++++++++++++++++++++");
         log.info(loginAdminVo.toString());
         seckillUserService.login_admin(response,loginAdminVo);
         HttpSession session = request.getSession();
         session.setAttribute("admin", loginAdminVo.getName());
-        System.out.println("管理员信息："+loginAdminVo.toString());
         return Result.success(true);
     }
-
     //使用JSR303校验
     @RequestMapping("/do_login_test")//作为异步操作
     @ResponseBody

@@ -57,12 +57,17 @@
                 </td>
             </tr>
             <tr>
+                <td>手机号码</td>
+                <td id="userId" colspan="2"><input id="mobile" name = "mobile" class="form-control" type="text" disabled="disabled" placeholder="手机号码" required="true"  minlength="11" maxlength="11"  />
+            </tr>
+            <tr>
                 <td>收货人</td>
-                <td colspan="2">Sun  17310726386</td>
+                <td id="username" colspan="2"></td>
             </tr>
             <tr>
                 <td>收货地址</td>
-                <td colspan="2">上海市</td>
+                <td colspan="2"><input id="delivery_address" name = "delivery_address" class="form-control" type="text" placeholder="收货地址" required="true"  minlength="3" maxlength="50"  />
+                </td>
             </tr>
         </table>
     </div>
@@ -108,6 +113,9 @@
         $("#goodsImg").attr("src",goods.goodsImg);
         $("#goodsPrice").text(order.goodsPrice);
         $("#createDate").text(new Date(order.createDate).format("yyyy-MM-dd hh:mm:ss"));
+        //$("#userId").text(order.userId);mobile
+        $("#mobile").val(order.userId);
+        $("#username").text(order.userName);
         //判断订单的状态orderStatus
         var status="";
         if(order.status==0){
@@ -136,11 +144,15 @@
      * 立即支付
      */
     function pay() {
+        var delivery_address = $("#delivery_address").val();
+        var mobile=$("#mobile").val();
         $.ajax({
             url:"/order/pay_status",
             type:"GET",
             data:{
-                status:1
+                status:1,
+                address:delivery_address,
+                mobile:mobile
             },
             success:function (data) {
                 if (data.code==0){
@@ -148,16 +160,23 @@
                     if(result < 0){
                         layer.msg("对不起，秒杀失败")
                     }else {
-                        layer.msg("立即支付此订单？",{
+                        if(confirm("确认支付此订单？")){
+                            window.location.href="/order/to_order_detail?id="+mobile;
+                        }else {
+                            window.location.reload();
+                        }
+
+
+                        /*layer.msg("立即支付此订单？",{
                                 btn:["是","否"],
                                 time: 20000
                             },
                             function () {
-                                window.location.reload();
+
                             },
                             function () {
                                 layer.close()
-                            });
+                            });*/
                     }
                 }else {
                     layer.msg(data.msg);

@@ -1,17 +1,15 @@
 package com.seckill.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.seckill.pojo.*;
-import com.seckill.result.CodeMsg;
 import com.seckill.result.Result;
+import com.seckill.service.AdminService;
 import com.seckill.service.GoodsService;
 
+import com.seckill.vo.SeckillGoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +20,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.html.HTML;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
@@ -36,6 +33,8 @@ public class AdminController {
     ThymeleafViewResolver thymeleafViewResolver;
     @Autowired
     ApplicationContext applicationContext;
+    @Autowired
+    AdminService adminService;
 
     @RequestMapping("/home")
     @ResponseBody
@@ -130,8 +129,10 @@ public class AdminController {
         PageInfo<SeckillGoods> pageInfo = goodsService.getSeckillGoods(pageNum, pageSize);
         System.out.println("一共有：" + pageInfo.getPages() + "页");
         List<SeckillGoods> list = pageInfo.getList();
+        List<SeckillGoodsVo> goods = adminService.getNameById();
+
         System.out.println("**商品列表**：" + list);
-        model.addAttribute("goodsList", list);
+        model.addAttribute("goodsList",goods);
         model.addAttribute("pageInfo", pageInfo);
         //return "goods_list";
         SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
@@ -140,6 +141,31 @@ public class AdminController {
         return html;
     }
 
+    /**
+     * 秒杀商品查询
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/sec_goods_search", produces = "text/html")
+    @ResponseBody
+    public String seckillgoods_search(HttpServletRequest request, HttpServletResponse response, Model model) {
+        String name = request.getParameter("name");
+        List<SeckillGoodsVo> seckillGoodsVos = adminService.search_res(name);
+        model.addAttribute("goodsList", seckillGoodsVos);
+        return "sec_goods_search";
+    }
+    @GetMapping(value = "/sec_goods_searchs", produces = "text/html")
+    public String seckillgoods_searchs(HttpServletRequest request, HttpServletResponse response, Model model) {
+        String name = request.getParameter("name");
+        System.out.println("******名字是："+name);
+        List<SeckillGoodsVo> seckillGoodsVos = adminService.search_res(name);
+        System.out.println("查询："+seckillGoodsVos.toString());
+        model.addAttribute("goodsList", seckillGoodsVos);
+        return "sec_goods_search";
+    }
     /**
      * 订单详情页面
      *

@@ -23,13 +23,11 @@ public class UserArgumentResolvers implements HandlerMethodArgumentResolver {
         Class<?> clazz = parameter.getParameterType();
         return clazz== SeckillUser.class;
     }
-
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         return UserContext.getUser();
 
     }
-
     private String getCookieValue(HttpServletRequest request, String cookieName) {
         //遍历request里面所有的cookie
         Cookie[] cookies=request.getCookies();

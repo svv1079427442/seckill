@@ -24,7 +24,6 @@ public class RegisterController {
     private SeckillUserService seckillUserService;
     //slf日志
     private static Logger log = LoggerFactory.getLogger(LoginController.class);
-
     @RequestMapping("/to_register")
     public String toLogin(SeckillUser user, Model model) {
             return "register";//返回页面login
@@ -32,7 +31,6 @@ public class RegisterController {
     @RequestMapping("/do_register")
     @ResponseBody
     public Result<Boolean> do_register(HttpServletResponse response, @Valid RegisterVo loginVo){
-        System.out.println("开始注册");
         log.info(loginVo.toString());
         seckillUserService.register(response,loginVo);
         return Result.success(true);

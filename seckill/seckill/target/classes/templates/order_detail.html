@@ -2,20 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>订单详情</title>
-    <!-- thymeleaf引入静态资源的方式，@加大括弧    "/" 代表static路径-->
-    <!-- jquery -->
-    <!-- <script type="text/javascript" th:src="@{/js/jequery.min.js}"></script> -->
     <script type="text/javascript" th:src="@{/jquery-validation/lib/jquery-1.11.1.js}"></script>
-    <!-- bootstrap -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"/>
-     -->
     <link type="text/css" rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}"/>
     <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 
 </head>
 <body>
     <div class="panel panel-default">
-        <div class="panel-heading">秒杀订单详情</div>
+        <div class="panel-heading">订单信息</div>
         <table class="table" id="goodslist">
             <tr>
                 <td>商品名称</td>
@@ -43,16 +37,19 @@
                     <span th:if="${orderInfo.status eq 4}">已退款</span>
                     <span th:if="${orderInfo.status eq 5}">已完成</span>
                 </td>
-                <td>						<!-- 如果上面是未支付，那么下面会生成一个立即支付的按钮 -->
-                    <button class="btn btn-primary btn-block" type="submit" id="payButton">立即支付</button>
-                </td>
+
+            </tr>
+            <tr>
+                <td>手机号码</td>
+                <td id="userId" colspan="2" th:text="${orderInfo.userId}"></td>
             </tr>
             <tr>
                 <td>收货人</td>
-                <td colspan="2">Sun  17368666386</td>
+                <td id="username" colspan="2" th:text="${orderInfo.userName}"></td>
             </tr>
             <tr>
                 <td>收货地址</td>
+                <td id="address" colspan="2" th:text="${orderInfo.deliveryAddress}"></td>
             </tr>
         </table>
     </div>
