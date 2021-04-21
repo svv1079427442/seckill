@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-        商品添加
+        秒杀商品添加
     </title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -39,25 +39,19 @@
                             <span class='x-red'>*</span>商品名称
                         </label>
                         <div class="layui-input-block">
-                            <input type="text" name="goods_name" autocomplete="off" placeholder="商品名称"
-                                   class="layui-input" required="" lay-verify="required" >
+                            <select name="goodsname" id="goodsname" class="form-control1">
+                                   <option id="goodname" th:each="goods,goodStat:${goodsList}" th:value="${goods.id}" th:text="${goods.goodsName}"></option>
+                             </select>
+
+
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">
-                            <span class='x-red'>*</span>商品原价
+                            <span class='x-red'>*</span>秒杀价格
                         </label>
                         <div class="layui-input-block">
-                            <input type="text" name="goods_price" autocomplete="off" placeholder="商品原价"
-                                   class="layui-input" lay-verify="required" >
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            <span class='x-red'>*</span>商品详情
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" name="goods_detail" autocomplete="off" placeholder="商品详情"
+                            <input type="text" name="seckill_price" autocomplete="off" placeholder="秒杀价格"
                                    class="layui-input" lay-verify="required" >
                         </div>
                     </div>
@@ -69,6 +63,26 @@
                             <input type="text" name="seckill_count" autocomplete="off" placeholder="库存"
                                    class="layui-input" lay-verify="required" >
                         </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>开始时间
+                        </label>
+
+                        <div class="layui-input-inline">
+                            <input class="layui-input" name="start_time" placeholder="开始时间" id="LAY_demorange_s" value="">
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>结束时间
+                        </label>
+
+                        <div class="layui-input-inline">
+                            <input class="layui-input" name="end_time" placeholder="开始时间" id="END_demorange_s" value="" >
+                        </div>
+
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">
@@ -85,21 +99,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <label  class="layui-form-label">
-                            <span class="x-red">*</span>商品图片
-                        </label>
-                        <div class="layui-input-inline">
-                            <div class="site-demo-upbar">
-                                <div class=" layui-upload-button" style="border:#FFFFFF ;">
-                                    <button type="button" class="layui-btn" id="test1">
-                                        <i class="layui-icon">&#xe67c;</i>上传图片
-                                    </button>
-                                    <input class="layui-upload" type="file" accept="undefined" id="previewImg" name="goods_image" onchange="upload(this,id)">
-                                </div>
 
-                            </div>
-                        </div>
                         <!--&lt;!&ndash;<a href="javascript:;" style="" class="layui-btn " id="cancel"><i class="layui-icon">ဂ</i>撤销上传</a>&ndash;&gt;-->
                     </div>
                     <!--<div class="layui-form-item imgs" id="imgshow">
@@ -128,46 +128,68 @@
 
 </script>
 <script>
-    layui.use(['element','layer','form'], function(){
+    layui.use(['laydate','element','layer','form'], function(){
         $ = layui.jquery;//jquery
         lement = layui.element();//面包导航
         layer = layui.layer;//弹出层
         form = layui.form();
+        laydate = layui.laydate;//日期插件
         okLoading.close($);
+        form.render();
+        var start = {
+            min: laydate.now()
+            ,max: '2099-06-16 23:59:59'
+            ,istoday: false
+            ,choose: function(datas){
+                //end.min = datas; //开始日选好后，重置结束日的最小日期
+                //end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        document.getElementById('LAY_demorange_s').onclick = function(){
+            start.elem = this;
+            laydate(start);
+        };
 
+        document.getElementById('END_demorange_s').onclick = function(){
+            start.elem = this;
+            laydate(start);
+        };
         //监听提交
         form.on('submit(add)', function(data){
-            var goods_detail=$("input[name='goods_detail']").val();
-            var goods_name=$("input[name='goods_name']").val();
-            var goods_price=$("input[name='goods_price']").val();
-            var goods_image=$("input[name='goods_image']").val();
-            var seckill_count=$("input[name='seckill_count']").val();
+            var $gd=$('#goodsname option:selected');
 
-            if(goods_detail==""){
-                layer.msg('商品详情不能为空',{icon:5,time:2000});return false;
+            var goods_name=$("#goodsname").find("option:selected").text();
+            //var goods_name=$("#goodsname"" option:selected").text();
+            var goods_id=$gd.val();
+            var seckill_price=$("input[name='seckill_price']").val();
+            var seckill_count=$("input[name='seckill_count']").val();
+            var start_time=$("input[name='start_time']").val();
+            var end_time=$("input[name='end_time']").val();
+
+            if(seckill_price==""){
+                layer.msg('秒杀价格不能为空',{icon:5,time:2000});return false;
             }
             if(seckill_count==""){
                 layer.msg('库存不能为空',{icon:5,time:2000});return false;
             }
-            if(goods_detail==""){
-                layer.msg('商品详情不能为空',{icon:5,time:2000});return false;
+            if(start_time==""){
+                layer.msg('开始时间不能为空',{icon:5,time:2000});return false;
             }
-            if(goods_price==""){
-                layer.msg('商品价格不能为空',{icon:5,time:2000});return false;
+            if(end_time==""){
+                layer.msg('结束时间不能为空',{icon:5,time:2000});return false;
             }
-            if(goods_image==""){
-                layer.msg('商品图片不能为空',{icon:5,time:2000});return false;
-            }
+
             var data=data.field;
             alert(data);
             $.ajax({
                 type:"post",
-                url:"/admin/add_submit",
+                url:"/admin/add_submit_sec_good",
                 data:{"goods_name":goods_name,
-                    "goods_price":goods_price,
-                    "goods_image":goods_image,
-                    "goods_detail":goods_detail,
-                    "seckill_count":seckill_count
+                    "seckill_price":seckill_price,
+                    "seckill_count":seckill_count,
+                    "start_time":start_time,
+                    "end_time":end_time,
+                    "goods_id":goods_id
                 },
                 dataType:"json",
                 success:function(data)

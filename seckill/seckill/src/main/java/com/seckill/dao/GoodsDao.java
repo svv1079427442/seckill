@@ -3,13 +3,12 @@ package com.seckill.dao;
 import com.seckill.pojo.Goods;
 import com.seckill.pojo.SeckillGoods;
 import com.seckill.vo.GoodsVo;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -23,4 +22,8 @@ public interface GoodsDao {
     public boolean reduceStock(SeckillGoods g);
     @Select("select * from goods where id = #{id}")
     public Goods getGoodsImg(@Param("id") long id);
+    @Select("select goods.id,goods.goods_name FROM goods where goods.id not in (SELECT seckill_goods.goods_id FROM seckill_goods)")
+    public List<Goods> getGoodsList();
+    @Insert(" insert into seckill_goods (goods_id,seckill_price,stock_count,start_date,end_date) values(#{goods_id},#{seckill_price},#{stock_count},#{start_date},#{end_date})")
+    public void add_sec_goods(@Param("goods_id") int id, @Param("stock_count") int count,@Param("seckill_price") BigDecimal price, @Param("start_date") Date start, @Param("end_date") Date end);
 }

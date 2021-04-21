@@ -58,7 +58,7 @@
     </form>
     <xblock>
 
-        <button class="layui-btn" onclick="admin_add('添加','communityadd.html','1000','600')"><i class="layui-icon">&#xe608;</i>添加</button>
+        <button class="layui-btn" th:onclick="|admin_add('添加','sec_good_add','1000','600')|" ><i class="layui-icon">&#xe608;</i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge" th:text="${pageInfo.total}"></span> 条</span>
     </xblock>
     <table class="layui-table">
@@ -236,6 +236,25 @@
     }
     /*添加*/
     function admin_add(title,url,w,h){
+        url ="/admin/"+ url;
+        $.ajax({
+            type:"post",
+            url:"/admin/sec_good_adds",
+            data:{"id":1},
+            dataType:"json",
+            success:function(data)
+            {
+                if(data.status==1)
+                {
+                    window.location.href="/admin/sec_good_adds";
+                    return false;
+                }
+                else{
+                    layer.msg(data.info,{icon:5,time:2000});return false;
+                }
+            }
+
+        });
         x_admin_show(title,url,w,h);
     }
 

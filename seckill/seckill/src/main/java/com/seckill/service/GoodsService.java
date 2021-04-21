@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -128,5 +129,12 @@ public class GoodsService {
     }
     public Goods getGoodsImg(long id){
         return goodsDao.getGoodsImg(id);
+    }
+
+    public List<Goods> getGoodsList(){
+        return goodsDao.getGoodsList();
+    }
+    public void add_sec_goods(int id, int count,BigDecimal price ,Date start,Date end){
+         goodsDao.add_sec_goods(id, count,price, start, end);
     }
 }

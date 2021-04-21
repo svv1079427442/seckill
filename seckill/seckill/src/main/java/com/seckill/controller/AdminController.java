@@ -1,5 +1,6 @@
 package com.seckill.controller;
 
+import com.github.pagehelper.PageException;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.seckill.pojo.*;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -35,6 +38,7 @@ public class AdminController {
     ApplicationContext applicationContext;
     @Autowired
     AdminService adminService;
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @RequestMapping("/home")
     @ResponseBody
@@ -115,6 +119,40 @@ public class AdminController {
         SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
         //手动渲染
         String html = thymeleafViewResolver.getTemplateEngine().process("add", springWebContext);
+        return html;
+    }
+
+
+    /**
+     * 添加秒杀商品
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/sec_good_add", produces = "text/html")
+    @ResponseBody
+    public String sec_good_add(HttpServletRequest request, HttpServletResponse response, Model model) {
+        System.out.println("++++秒杀商品添加++++");
+        List<Goods> list = goodsService.getGoodsList();
+        model.addAttribute("goodsList",list);
+        SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        String html = thymeleafViewResolver.getTemplateEngine().process("add_sec_good", springWebContext);
+        return html;
+    }
+    /**
+     * 添加秒杀商品
+     *
+     * @param model
+     * @return
+     */
+    @PostMapping(value = "/sec_good_adds", produces = "text/html")
+    @ResponseBody
+    public String sec_good_adds(HttpServletRequest request, HttpServletResponse response, Model model) {
+        System.out.println("++++秒杀商品添加++++");
+        SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        String html = thymeleafViewResolver.getTemplateEngine().process("add_sec_good", springWebContext);
         return html;
     }
     /**
@@ -403,6 +441,28 @@ public class AdminController {
         String goods_image="/img/"+substring;
         BigDecimal price=new BigDecimal(goods_price);
         goodsService.addGood(goods_name,goods_title,price,Integer.valueOf(seckill_count),goods_image);
+        response.getWriter().write("1");
+    }
+    /**
+     * 添加提交
+     */
+    @RequestMapping(value = "/add_submit_sec_good", produces = "text/html")
+    public void add_submit_sec_good(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String goods_name = request.getParameter("goods_name");
+        String goods_id = request.getParameter("goods_id");
+        System.out.println("名字:"+goods_name);
+        System.out.println("id:"+goods_id);
+        String seckill_price = request.getParameter("seckill_price");
+        String count = request.getParameter("seckill_count");
+        String start_time = request.getParameter("start_time");
+        String end_time = request.getParameter("end_time");
+        try {
+            Date start = simpleDateFormat.parse(start_time);
+            Date end = simpleDateFormat.parse(end_time);
+            goodsService.add_sec_goods(Integer.parseInt(goods_id),Integer.parseInt(count),new BigDecimal(seckill_price),start,end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         response.getWriter().write("1");
     }
     /**
