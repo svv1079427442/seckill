@@ -339,6 +339,22 @@ public class AdminController {
         goodsService.del_User(id);
         response.getWriter().write("1");
     }
+    /**
+     * 删除秒杀商品
+     * @param request
+     * @param response
+     * @param model
+     * @throws ServletException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/del_goods", produces = "text/html")
+    @ResponseBody
+    public void del_goods(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+        long id = Long.valueOf(request.getParameter("id"));
+        System.out.println("删除删除删除");
+        goodsService.delSeckillGoods(id);
+        response.getWriter().write("1");
+    }
     @GetMapping(value = "/update/{id}", produces = "text/html")
     @ResponseBody
     public String to_update(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable String id) throws IOException {
@@ -392,6 +408,28 @@ public class AdminController {
         SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
         //手动渲染
         String html = thymeleafViewResolver.getTemplateEngine().process("update_user", springWebContext);
+        return html;
+    }
+    /**
+     * 用户列表_复现修改内容
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/update_seckill_goods", produces = "text/html")
+    @ResponseBody
+    public String fuxian_update_seckill_goods(HttpServletRequest request, HttpServletResponse response, Model model) {
+        long id = Long.valueOf(request.getParameter("id"));
+        System.out.println("获取编号id为：" + id);
+        SeckillGoodsVo list = goodsService.getSecGoodsById(id);
+        list.setGoodsName(goodsService.getNameById(id));
+        model.addAttribute("goodsList", list);
+        SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        String html = thymeleafViewResolver.getTemplateEngine().process("update_seckill_goods", springWebContext);
         return html;
     }
 

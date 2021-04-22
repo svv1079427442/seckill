@@ -132,7 +132,7 @@
                 <a style="text-decoration:none" onclick="admin_stop(this,'10001')" href="javascript:;" title="停用">
                     <i class="layui-icon">&#xe601;</i>
                 </a>
-                <a title="编辑" href="javascript:;" th:onclick="|edit('编辑','update',${goods.id},'1000','600')|"
+                <a title="编辑" href="javascript:;" th:onclick="|edit('编辑','update_seckill_goods',${goods.id},'1000','600')|"
                    class="ml-5" style="text-decoration:none">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
@@ -281,10 +281,10 @@
     }
     //编辑
     function edit (title,url,id,w,h) {
-        url ="/admin/"+ url+"/"+id;
+        url ="/admin/"+ url+"?id="+id;
         $.ajax({
             type:"post",
-            url:"/admin/update",
+            url:"/admin/update_seckill_goods",
             data:{"id":id},
             dataType:"json",
             success:function(data)
@@ -292,7 +292,6 @@
                 if(data.status==1)
                 {
                     //window.parent.location.reload();
-                    alert(11111);
                     window.location.href="/admin/update";
                     return false;
                 }
@@ -300,7 +299,6 @@
                     layer.msg(data.info,{icon:5,time:2000});return false;
                 }
             }
-
         });
         x_admin_show(title,url,w,h);
     }
@@ -309,26 +307,23 @@
         layer.confirm('确认要删除吗？',{icon:3,title:'提示信息'},function(index){
             $.ajax({
                 type:"post",
-                url:"/admin/del",
+                url:"/admin/del_goods",
                 data:{id:id},
                 dataType:"json",
                 success:function(data){
-                    //console.log(data);
-                    if(data.status==1){
+                    console.log(data);
+                    if(data==1){
                         //发异步删除数据
                         $(obj).parents("tr").remove();
-                        layer.msg(data.info,{icon:6,time:1000});
+                        layer.msg("已删除",{icon:1,time:2000});
                         setTimeout(function(){
                             window.location.reload();
                         },1000);return false;
                     } else{
-                        layer.msg(data.info,{icon:5,time:1000});return false;
+                        layer.msg('删除失败!',{icon:5,time:2000});return false;
                     }
                 }
             });
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
         });
     }
     /*搜索*/

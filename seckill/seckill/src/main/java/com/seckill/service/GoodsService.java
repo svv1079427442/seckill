@@ -7,6 +7,7 @@ import com.seckill.dao.GoodsDao;
 import com.seckill.pojo.*;
 import com.seckill.redis.RedisService;
 import com.seckill.vo.GoodsVo;
+import com.seckill.vo.SeckillGoodsVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,15 +63,23 @@ public class GoodsService {
     public int del_User(long id) {
         return adminDao.delUser(id);
     }
-
+    public int delSeckillGoods(long id) {
+        return adminDao.delSeckillGoods(id);
+    }
     public Goods getById(int id) {
 
         return adminDao.getById(id);
     }
-
+    public String  getNameById(long id){
+        return adminDao.getNameById(id);
+    }
     public SeckillUser getUserById(long id) {
 
         return adminDao.getUserById(id);
+    }
+    public SeckillGoodsVo getSecGoodsById(long id) {
+
+        return adminDao.getSecGoodsById(id);
     }
     public int update(int id, String goods_name, String goods_title, BigDecimal goods_price, int goods_stock) {
         return adminDao.update(id, goods_name, goods_title, goods_price, goods_stock);
