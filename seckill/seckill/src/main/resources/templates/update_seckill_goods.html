@@ -36,10 +36,19 @@
                 <div class="layui-tab-item layui-show">
                     <div class="layui-form-item">
                         <label class="layui-form-label">
+                            <span class='x-red'>*</span>商品id
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="goods_id" autocomplete="off" placeholder=""
+                                   class="layui-input" lay-verify="required" th:value="${goodsList.id}" >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
                             <span class='x-red'>*</span>商品名称
                         </label>
                             <div class="layui-input-block">
-                                <input type="text" name="seckill_price" autocomplete="off" placeholder=""
+                                <input type="text" name="goods_name" autocomplete="off" placeholder=""
                                        class="layui-input" lay-verify="required" th:value="${goodsList.goodsName}" >
                             </div>
                     </div>
@@ -97,9 +106,7 @@
                             </div>
                         </div>
                     </div>
-
-                        <!--&lt;!&ndash;<a href="javascript:;" style="" class="layui-btn " id="cancel"><i class="layui-icon">ဂ</i>撤销上传</a>&ndash;&gt;-->
-                    </div>
+                </div>
                     <!--<div class="layui-form-item imgs" id="imgshow">
                         <label  class="layui-form-label">商品缩略图展示
                         </label>
@@ -108,7 +115,7 @@
                     </div>-->
 
                     <div class="layui-form-item">
-                        <button class="layui-btn" type="button" lay-filter="add" lay-submit="">
+                        <button class="layui-btn" type="button" lay-filter="add" lay-submit="" >
                             保存
                         </button>
                     </div>
@@ -152,11 +159,8 @@
         };
         //监听提交
         form.on('submit(add)', function(data){
-            var $gd=$('#goodsname option:selected');
-
-            var goods_name=$("#goodsname").find("option:selected").text();
-            //var goods_name=$("#goodsname"" option:selected").text();
-            var goods_id=$gd.val();
+            var goods_name=$("input[name='goods_name']").val();
+            var goods_id=$("input[name='goods_id']").val();
             var seckill_price=$("input[name='seckill_price']").val();
             var seckill_count=$("input[name='seckill_count']").val();
             var start_time=$("input[name='start_time']").val();
@@ -178,7 +182,7 @@
             var data=data.field;
             $.ajax({
                 type:"post",
-                url:"/admin/add_submit_sec_good",
+                url:"/admin/update_submit_sec_good",
                 data:{"goods_name":goods_name,
                     "seckill_price":seckill_price,
                     "seckill_count":seckill_count,
@@ -192,7 +196,7 @@
 
                     if(data==1)
                     {
-                        layer.msg("添加成功", {icon: 6,time:2000},function () {
+                        layer.msg("修改成功", {icon: 6,time:2000},function () {
                             window.parent.location.reload();
                             var index = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(index);

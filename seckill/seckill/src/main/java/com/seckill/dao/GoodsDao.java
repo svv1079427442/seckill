@@ -26,4 +26,7 @@ public interface GoodsDao {
     public List<Goods> getGoodsList();
     @Insert(" insert into seckill_goods (goods_id,seckill_price,stock_count,start_date,end_date) values(#{goods_id},#{seckill_price},#{stock_count},#{start_date},#{end_date})")
     public void add_sec_goods(@Param("goods_id") int id, @Param("stock_count") int count,@Param("seckill_price") BigDecimal price, @Param("start_date") Date start, @Param("end_date") Date end);
+    @Update("update seckill_goods set seckill_price=#{price},stock_count=#{count},start_date=#{start},end_date=#{end} where id =#{id}")
+    public int update_sec_goods(@Param("id") long id, @Param("price") BigDecimal price, @Param("count") int count, @Param("start") Date start, @Param("end") Date end);
+
 }

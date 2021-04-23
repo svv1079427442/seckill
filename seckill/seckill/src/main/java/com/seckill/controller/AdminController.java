@@ -482,7 +482,7 @@ public class AdminController {
         response.getWriter().write("1");
     }
     /**
-     * 添加提交
+     * 修改保存提交
      */
     @RequestMapping(value = "/add_submit_sec_good", produces = "text/html")
     public void add_submit_sec_good(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -498,6 +498,30 @@ public class AdminController {
             Date start = simpleDateFormat.parse(start_time);
             Date end = simpleDateFormat.parse(end_time);
             goodsService.add_sec_goods(Integer.parseInt(goods_id),Integer.parseInt(count),new BigDecimal(seckill_price),start,end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        response.getWriter().write("1");
+    }
+
+    /**
+     * 秒杀商品修改保存
+     */
+    @RequestMapping(value = "/update_submit_sec_good", produces = "text/html")
+    public void update_submit_sec_good(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        String goods_name = request.getParameter("goods_name");
+        String goods_id = request.getParameter("goods_id");
+        System.out.println("名字:"+goods_name);
+        System.out.println("id:"+goods_id);
+        String seckill_price = request.getParameter("seckill_price");
+        String count = request.getParameter("seckill_count");
+        String start_time = request.getParameter("start_time");
+        String end_time = request.getParameter("end_time");
+        try {
+            Date start = simpleDateFormat.parse(start_time);
+            Date end = simpleDateFormat.parse(end_time);
+            goodsService.update_sec_goods(Integer.parseInt(goods_id),new BigDecimal(seckill_price),Integer.parseInt(count),start,end);
         } catch (ParseException e) {
             e.printStackTrace();
         }

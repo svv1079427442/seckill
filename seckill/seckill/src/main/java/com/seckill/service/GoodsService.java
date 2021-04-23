@@ -146,4 +146,7 @@ public class GoodsService {
     public void add_sec_goods(int id, int count,BigDecimal price ,Date start,Date end){
          goodsDao.add_sec_goods(id, count,price, start, end);
     }
+    public void update_sec_goods(long id,BigDecimal price,int count,Date start,Date end){
+        goodsDao.update_sec_goods(id,price,count,start,end);
+    }
 }
