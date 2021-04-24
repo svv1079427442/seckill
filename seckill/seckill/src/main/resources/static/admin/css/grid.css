@@ -853,6 +853,7 @@
   .col-lg-8,
   .col-lg-9 {
     float: left;
+    width: 100%;
   }
   .col-lg-12 {
     width: 100%;

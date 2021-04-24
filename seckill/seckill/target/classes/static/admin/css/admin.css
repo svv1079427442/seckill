@@ -869,7 +869,7 @@
     width: 83.33333333%;
   }
   .col-lg-9 {
-    width: 75%;
+    width: 100%;
   }
   .col-lg-8 {
     width: 66.66666667%;
@@ -1207,6 +1207,7 @@
 /*默认面板*/
 .panel-default {
   border-color: #dddddd;
+  width: 1920px;
 }
 .panel-default > .panel-header {
   border-color: #ddd;

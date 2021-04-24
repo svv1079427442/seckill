@@ -64,7 +64,7 @@ public class OrderController {
     public Result<Integer> pay(Model model, OrderInfo info, HttpServletRequest request) {
         String status = request.getParameter("status");
         String address = request.getParameter("address");
-        String mobile = request.getParameter("mobile");
+        String mobile = request.getParameter("id");
         int res = orderService.update_address(address, Long.valueOf(mobile));
         if (address.equals("")){
             throw new GlobalException(CodeMsg.ADDRESS_NOT_WRITE);

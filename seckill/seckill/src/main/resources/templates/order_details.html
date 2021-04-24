@@ -45,25 +45,18 @@
     <form class="layui-form x-center" action="" style="width:80%">
         <div class="layui-form-pane" style="margin-top: 15px;">
             <div class="layui-form-item">
-                <label class="layui-form-label">日期范围</label>
+                <label class="layui-form-label">查询订单</label>
+
                 <div class="layui-input-inline">
-                    <input class="layui-input" placeholder="开始日" id="LAY_demorange_s">
-                </div>
-                <div class="layui-input-inline">
-                    <input class="layui-input" placeholder="截止日" id="LAY_demorange_e">
-                </div>
-                <div class="layui-input-inline">
-                    <input type="text" name="username"  placeholder="请输入登录名" autocomplete="off" class="layui-input">
+                    <input type="text" name="user_id"  placeholder="请输入手机号" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-input-inline" style="width:80px">
-                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                    <button class="layui-btn" type="button" lay-submit="" lay-filter="sreach" onclick="search()"><i class="layui-icon">&#xe615;</i></button>
                 </div>
             </div>
         </div>
     </form>
     <xblock>
-
-        <button class="layui-btn" onclick="admin_add('添加','communityadd.html','1000','600')"><i class="layui-icon">&#xe608;</i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge" th:text="${pageInfo.total}"></span> 条</span>
     </xblock>
     <table class="layui-table">
@@ -96,9 +89,7 @@
             <th>
                 价格
             </th>
-            <th>
-                渠道
-            </th>
+
             <th>
                 生成时间
             </th>
@@ -119,7 +110,7 @@
 
             </td>
 
-            <td th:text="${goods.userId}">
+            <td th:text="${goods.userId}" >
 
             </td>
             <td th:text="${goods.userName}">
@@ -142,26 +133,25 @@
 
             </td>
 
-            <td th:text="${goods.orderChannel}">
 
-            </td>
 
             <td th:text="${#dates.format(goods.createDate,'yyyy-MM-dd HH:mm:ss')}">
 
             </td>
             <td class="td-status">
-                <span class="layui-btn layui-btn-normal " onclick="start(this,'2',0)"> 未付款 </span>
+                <span class="layui-btn layui-btn-normal " th:if="${goods.status} eq 1" onclick="start(this,'2',0)"> 未付款 </span>
+                <span class="layui-btn layui-btn-normall " th:if="${goods.status} eq 2" onclick="start(this,'2',0)"> 已付款 </span>
             </td>
 
             <td class="td-manage">
                 <a style="text-decoration:none" onclick="admin_stop(this,'10001')" href="javascript:;" title="停用">
                     <i class="layui-icon">&#xe601;</i>
                 </a>
-                <a title="编辑" href="javascript:;" th:onclick="|edit('编辑','update',${goods.id},'1000','600')|"
+                <a title="编辑" href="javascript:;" th:onclick="|edit('编辑','update_order_info',${goods.id},'1000','600')|"
                    class="ml-5" style="text-decoration:none">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
-                <a title="删除" href="javascript:;"  th:onclick="|admin_del(this,${goods.id})|"
+                <a title="删除" href="javascript:;"  th:onclick="|admin_del(this,${goods.goodsId},${goods.userId})|"
                    style="text-decoration:none">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
@@ -287,10 +277,10 @@
     }
     //编辑
     function edit (title,url,id,w,h) {
-        url ="/admin/"+ url+"/"+id;
+        url ="/admin/"+ url+"?id="+id;
         $.ajax({
             type:"post",
-            url:"/admin/update",
+            url:"/admin/update_order_info",
             data:{"id":id},
             dataType:"json",
             success:function(data)
@@ -298,7 +288,6 @@
                 if(data.status==1)
                 {
                     //window.parent.location.reload();
-                    alert(11111);
                     window.location.href="/admin/update";
                     return false;
                 }
@@ -306,24 +295,25 @@
                     layer.msg(data.info,{icon:5,time:2000});return false;
                 }
             }
-
         });
         x_admin_show(title,url,w,h);
     }
     /*删除*/
-    function admin_del(obj,id){
+    function admin_del(obj,id,userid){
         layer.confirm('确认要删除吗？',{icon:3,title:'提示信息'},function(index){
             $.ajax({
                 type:"post",
-                url:"/admin/del",
-                data:{id:id},
+                url:"/admin/del_order",
+                data:{id:id,
+                      userid:userid
+                },
                 dataType:"json",
                 success:function(data){
                     //console.log(data);
-                    if(data.status==1){
+                    if(data==1){
                         //发异步删除数据
                         $(obj).parents("tr").remove();
-                        layer.msg(data.info,{icon:6,time:1000});
+                        layer.msg("删除成功",{icon:6,time:1000});
                         setTimeout(function(){
                             window.location.reload();
                         },1000);return false;
@@ -335,6 +325,23 @@
             //发异步删除数据
             $(obj).parents("tr").remove();
             layer.msg('已删除!',{icon:1,time:1000});
+        });
+    }
+    /*搜索*/
+    function search(){
+        var user_id= $("input[name='user_id']").val();
+        $.ajax({
+            type:"post",
+            url:"/admin/order_search",
+            data:{user_id:user_id},
+            dataType:"html",
+            success:function(data){
+                //alert("success");
+                window.location.href="/admin/order_search_res?user_id="+user_id;
+            },
+            error:function (data) {
+                alert("fail"+data);
+            }
         });
     }
 </script>

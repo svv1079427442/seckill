@@ -39,7 +39,7 @@
               <a><cite>商品管理</cite></a>
               <a><cite>商品列表</cite></a>
             </span>
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="back_toList()"  title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
     <form class="layui-form x-center" action="" style="width:80%">
@@ -287,6 +287,9 @@
             $(obj).parents("tr").remove();
             layer.msg('已删除!',{icon:1,time:1000});
         });
+    }
+    function back_toList() {
+        window.location.href="/admin/seckill_goods";
     }
 </script>
 

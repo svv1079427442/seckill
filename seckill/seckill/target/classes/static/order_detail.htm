@@ -31,12 +31,16 @@
         <div class="panel-heading">秒杀订单详情</div>
         <table class="table" id="goodslist">
             <tr>
+                <td>订单</td>
+                <td colspan="3" id="orderid"></td>
+            </tr>
+            <tr>
                 <td>商品名称</td>
                 <td colspan="3" id="goodsName"></td>
             </tr>
             <tr>
                 <td>商品图片</td>
-                <td colspan="2"><img id="goodsImg" width="80" height="60"></img></td>
+                <td colspan="2"><img id="goodsImg" width="40" height="60"></img></td>
             </tr>
             <tr>
                 <td>订单原价</td>
@@ -109,9 +113,11 @@
         //alert(detail.status);
         var goods=detail.goodsVo;
         var order=detail.order;
+        $("#orderid").text(order.id);
         $("#goodsName").text(goods.goodsName);
         $("#goodsImg").attr("src",goods.goodsImg);
         $("#goodsPrice").text(order.goodsPrice);
+
         $("#createDate").text(new Date(order.createDate).format("yyyy-MM-dd hh:mm:ss"));
         //$("#userId").text(order.userId);mobile
         $("#mobile").val(order.userId);
@@ -146,13 +152,14 @@
     function pay() {
         var delivery_address = $("#delivery_address").val();
         var mobile=$("#mobile").val();
+        var id=$("#orderid").text();
         $.ajax({
             url:"/order/pay_status",
             type:"GET",
             data:{
                 status:1,
                 address:delivery_address,
-                mobile:mobile
+                id:id
             },
             success:function (data) {
                 if (data.code==0){
@@ -161,7 +168,7 @@
                         layer.msg("对不起，秒杀失败")
                     }else {
                         if(confirm("确认支付此订单？")){
-                            window.location.href="/order/to_order_detail?id="+mobile;
+                            window.location.href="/order/to_order_detail?id="+id;
                         }else {
                             window.location.reload();
                         }

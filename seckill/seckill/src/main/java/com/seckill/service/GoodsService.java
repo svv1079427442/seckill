@@ -48,7 +48,15 @@ public class GoodsService {
         g.setGoodsId(goods.getId());
         return goodsDao.reduceStock(g);
     }
-
+    public int countUser(){
+       return adminDao.countUser();
+    }
+    public int countOrder(){
+        return adminDao.countOrder();
+    }
+    public BigDecimal countSaleMomey(){
+        return adminDao.countSaleMomey();
+    }
     public List<Goods> getList() {
         return adminDao.getGoodsList();
     }
@@ -65,6 +73,12 @@ public class GoodsService {
     }
     public int delSeckillGoods(long id) {
         return adminDao.delSeckillGoods(id);
+    }
+    public int delSecOrder(long id,long userid) {
+        return adminDao.delSecOrder(id,userid);
+    }
+    public int delOrder(long id,long userid) {
+        return adminDao.delOrder(id,userid);
     }
     public Goods getById(int id) {
 
@@ -88,7 +102,9 @@ public class GoodsService {
     public int update_user(long id, String nickname, String delivery_address) {
         return adminDao.update_user(id,nickname,delivery_address);
     }
-
+    public int update_order(long id, long userid, String delivery_address) {
+        return adminDao.update_order(id,userid,delivery_address);
+    }
     public PageInfo getGoodsWithPage(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Goods> goodsList = adminDao.getGoodsList();
@@ -132,6 +148,9 @@ public class GoodsService {
     }
     public List<Goods> getByGoodsName(String name){
         return adminDao.getByGoodsName(name);
+    }
+    public OrderInfo getOrderInfo(long user_id){
+        return adminDao.getOrderInfo(user_id);
     }
     public Admin getByAdName(String name){
       return   adminDao.getByName(name);

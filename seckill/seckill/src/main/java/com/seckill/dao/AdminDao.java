@@ -5,6 +5,7 @@ import com.seckill.vo.GoodsVo;
 import com.seckill.vo.RegisterVo;
 import com.seckill.vo.SeckillGoodsVo;
 import org.apache.ibatis.annotations.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -27,6 +28,10 @@ public interface AdminDao {
     public int delUser(@Param("id") long id);
     @Delete("delete from seckill_goods where id =#{id}")
     public int delSeckillGoods(@Param("id") long id);
+    @Delete("delete from seckill_order where goods_id =#{id} and user_id=#{user_id}")
+    public int delSecOrder(@Param("id") long id,@Param("user_id") long user_id);
+    @Delete("delete from order_info where goods_id =#{id} and user_id=#{user_id}")
+    public int delOrder(@Param("id") long id,@Param("user_id") long user_id);
     @Select("select * from goods where id=#{id}")
     public Goods getById(@Param("id") int id);
     @Select("select goods.goods_name from goods where id=#{id}")
@@ -39,6 +44,9 @@ public interface AdminDao {
     public int update(@Param("id") int id, @Param("goods_name") String goods_name, @Param("goods_title") String goods_title, @Param("goods_price") BigDecimal goods_price, @Param("goods_stock") int goods_stock);
     @Update("update seckill_user set nickname=#{nickname},delivery_address=#{delivery_address} where id =#{id}")
     public int update_user(@Param("id") long id, @Param("nickname") String nickname, @Param("delivery_address") String delivery_address);
+    @Update("update order_info set user_id=#{userid},delivery_address=#{delivery_address} where id =#{id}")
+    public int update_order(@Param("id") long id, @Param("userid") long userid, @Param("delivery_address") String delivery_address);
+
     @Select("select * from seckill_goods")
     public List<SeckillGoods> getSeckillGoods();
     @Select("select * from order_info")
@@ -55,4 +63,14 @@ public interface AdminDao {
     public List<Goods> getByGoodsName(@Param("name") String name);
     /* @Insert("insert into seckill_user (id,pwd,nickname,salt,register_date) values(#{mobile},#{password},#{nickname},#{salt},#{register_date})")
     public boolean insert_into(RegisterVo loginVo);*/
+    @Select("select * from order_info where id = #{id}")
+    public OrderInfo getOrderDetailByid(@Param("id") long id);
+    @Select("select * from order_info where user_id = #{userid}")
+    public OrderInfo getOrderInfo(@Param("userid") long userid);
+    @Select("SELECT count(1) from seckill_user limit 1")
+    public int countUser();
+    @Select("SELECT count(1) from order_info limit 1")
+    public int countOrder();
+    @Select("SELECT SUM(order_info.goods_price) FROM order_info")
+    public BigDecimal countSaleMomey();
 }

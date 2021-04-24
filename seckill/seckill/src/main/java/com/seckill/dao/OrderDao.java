@@ -18,9 +18,9 @@ public interface OrderDao {
     OrderInfo getOrderById(long orderId);
     @Update("update order_info set status = #{status}")
     public int update_status(int status);
-    @Update("update order_info set delivery_address = #{address} where user_id = #{id}")
+    @Update("update order_info set delivery_address = #{address} where id = #{id}")
     public int update_address(@Param("address")String address,@Param("id")long id);
-    @Select("select * from order_info where user_id =#{id}")
+    @Select("select * from order_info where id =#{id}")
     public OrderInfo getOrderByUserId(@Param("id") long id);
     //public long select_orderId()
 

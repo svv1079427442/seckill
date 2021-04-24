@@ -9,6 +9,7 @@ import com.seckill.service.AdminService;
 import com.seckill.service.GoodsService;
 
 import com.seckill.vo.SeckillGoodsVo;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -60,9 +61,19 @@ public class AdminController {
      * @param model
      * @return
      */
-    @RequestMapping("/welcome")
-    public String toWelcome(Admin admin, Model model) {
-        return "welcome";
+    @RequestMapping(value = "/welcome", produces = "text/html")
+    @ResponseBody
+    public String toWelcome(Admin admin, Model model,HttpServletRequest request,HttpServletResponse response) {
+        int result = goodsService.countUser();
+        int order_res = goodsService.countOrder();
+        BigDecimal saleMomey = goodsService.countSaleMomey();
+        model.addAttribute("result",result);
+        model.addAttribute("order",order_res);
+        model.addAttribute("money",saleMomey);
+        SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        String html = thymeleafViewResolver.getTemplateEngine().process("welcome", springWebContext);
+        return html;
 
     }
 
@@ -355,6 +366,24 @@ public class AdminController {
         goodsService.delSeckillGoods(id);
         response.getWriter().write("1");
     }
+    /**
+     * 删除订单
+     * @param request
+     * @param response
+     * @param model
+     * @throws ServletException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/del_order", produces = "text/html")
+    @ResponseBody
+    public void del_order(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+        long id = Long.valueOf(request.getParameter("id"));
+        long userid = Long.valueOf(request.getParameter("userid"));
+        System.out.println("删除订单");
+        goodsService.delSecOrder(id,userid);
+        goodsService.delOrder(id,userid);
+        response.getWriter().write("1");
+    }
     @GetMapping(value = "/update/{id}", produces = "text/html")
     @ResponseBody
     public String to_update(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable String id) throws IOException {
@@ -528,6 +557,34 @@ public class AdminController {
         response.getWriter().write("1");
     }
     /**
+     * 跳转修改页面 订单
+     */
+    @RequestMapping(value = "/update_order_info", produces = "text/html")
+    //@ResponseBody
+    public String update_order_info(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+        String ids = request.getParameter("id");
+        long id = Long.parseLong(ids);
+        OrderInfo orderInfo = adminService.getOrderDetailByid(id);
+        model.addAttribute("order",orderInfo);
+        SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        String html = thymeleafViewResolver.getTemplateEngine().process("update_order_info", springWebContext);
+
+        return html;
+    }
+    /**
+     * 修改提交_订单
+     */
+    @RequestMapping(value = "/submit_order", produces = "text/html")
+    @ResponseBody
+    public void submit_order(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        long order_id = Long.valueOf(request.getParameter("order_id"));
+        String address = request.getParameter("address");
+        String userid = request.getParameter("userid");
+        int result = goodsService.update_order(order_id, Long.valueOf(userid), address);
+        response.getWriter().write("1");
+    }
+    /**
      * 搜索
      */
     @RequestMapping(value = "/search",method = RequestMethod.POST)
@@ -551,6 +608,37 @@ public class AdminController {
         model.addAttribute("goodsList", list);
         model.addAttribute("pageInfo", goodsPageInfo);
         return "goods_list_back_search";
+    }
+    /**
+     * 订单搜索
+     */
+    @RequestMapping(value = "/order_search",method = RequestMethod.POST,produces = "text/html")
+    public String order_search(HttpServletRequest request,HttpServletResponse response,Model model) throws IOException {
+        String user_id = request.getParameter("user_id");
+        System.out.println("手机号"+user_id);
+        OrderInfo orderInfo = goodsService.getOrderInfo(Long.valueOf(user_id));
+        System.out.println("订单信息："+orderInfo.toString());
+        model.addAttribute("goodsList",orderInfo);
+       // SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+       // String html = thymeleafViewResolver.getTemplateEngine().process("search_order", springWebContext);
+        response.getWriter().write("1");
+        return "search_order";
+    }
+    /**
+     * 订单搜索
+     */
+    @RequestMapping(value = "/order_search_res",produces = "text/html")
+    public String order_search_res(HttpServletRequest request,HttpServletResponse response,Model model) throws IOException {
+        String user_id = request.getParameter("user_id");
+        System.out.println("手机号"+user_id);
+        OrderInfo orderInfo = goodsService.getOrderInfo(Long.valueOf(user_id));
+        System.out.println("订单信息："+orderInfo.toString());
+        model.addAttribute("goodsList",orderInfo);
+        // SpringWebContext springWebContext = new SpringWebContext(request, response, request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
+        //手动渲染
+        // String html = thymeleafViewResolver.getTemplateEngine().process("search_order", springWebContext);
+        return "search_order";
     }
     /**
      * 搜索提交

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-        商品列表
+        查询订单详情
     </title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -36,30 +36,30 @@
 <div class="x-nav">
             <span class="layui-breadcrumb">
               <a><cite>首页</cite></a>
-              <a><cite>商品管理</cite></a>
-              <a><cite>商品列表</cite></a>
+              <a><cite>订单管理</cite></a>
+              <a><cite>订单详情</cite></a>
             </span>
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  onclick="back_toList()" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
     <form class="layui-form x-center" action="" style="width:80%">
         <div class="layui-form-pane" style="margin-top: 15px;">
             <div class="layui-form-item">
-                <label class="layui-form-label">商品查询</label>
+                <label class="layui-form-label">查询订单</label>
 
                 <div class="layui-input-inline">
-                    <input type="text" name="username"  placeholder="请输入商品名" autocomplete="off" class="layui-input">
+                    <input type="text" name="user_id"  placeholder="请输入手机号" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-input-inline" style="width:80px">
-                    <button class="layui-btn" type="button"  lay-submit="" lay-filter="sreach" onclick="search()"><i class="layui-icon">&#xe615;</i></button>
+                    <button class="layui-btn" type="button" lay-submit="" lay-filter="sreach" onclick="search()"><i class="layui-icon">&#xe615;</i></button>
                 </div>
             </div>
         </div>
     </form>
     <xblock>
 
-        <button class="layui-btn" th:onclick="|admin_add('添加','sec_good_add','1000','600')|" ><i class="layui-icon">&#xe608;</i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge" th:text="${pageInfo.total}"></span> 条</span>
+        <button class="layui-btn" onclick="admin_add('添加','communityadd.html','1000','600')"><i class="layui-icon">&#xe608;</i>添加</button>
+
     </xblock>
     <table class="layui-table">
         <thead>
@@ -72,22 +72,29 @@
             </th>
 
             <th>
-                商品名称
+                用户ID
             </th>
             <th>
-                秒杀价格
+                用户名
             </th>
             <th>
-                库存
+                商品ID
             </th>
             <th>
-                秒杀开始时间
+                收获地址
             </th>
 
             <th>
-                秒杀结束时间
+                数量
             </th>
 
+            <th>
+                价格
+            </th>
+
+            <th>
+                生成时间
+            </th>
             <th>
                 状态
             </th>
@@ -105,34 +112,44 @@
 
             </td>
 
-            <td th:text="${goods.goodsName}">
+            <td th:text="${goods.userId}" >
+
+            </td>
+            <td th:text="${goods.userName}">
 
             </td>
 
-            <td th:text="${goods.seckillPrice}">
+            <td th:text="${goods.goodsId}">
 
             </td>
-            <td th:text="${goods.stockCount}">
-
-            </td>
-
-            <td th:text="${#dates.format(goods.startDate,'yyyy-MM-dd HH:mm:ss')}">
+            <td th:text="${goods.deliveryAddress}">
 
             </td>
 
-            <td th:text="${#dates.format(goods.endDate,'yyyy-MM-dd HH:mm:ss')}">
+
+            <td th:text="${goods.goodsCount}">
 
             </td>
 
+            <td th:text="${goods.goodsPrice}">
+
+            </td>
+
+
+
+            <td th:text="${#dates.format(goods.createDate,'yyyy-MM-dd HH:mm:ss')}">
+
+            </td>
             <td class="td-status">
-                <span class="layui-btn layui-btn-normal " onclick="start(this,'2',0)"> 显示 </span>
+                <span class="layui-btn layui-btn-normal " th:if="${goods.status} eq 1" onclick="start(this,'2',0)"> 未付款 </span>
+                <span class="layui-btn layui-btn-normall " th:if="${goods.status} eq 2" onclick="start(this,'2',0)"> 已付款 </span>
             </td>
 
             <td class="td-manage">
                 <a style="text-decoration:none" onclick="admin_stop(this,'10001')" href="javascript:;" title="停用">
                     <i class="layui-icon">&#xe601;</i>
                 </a>
-                <a title="编辑" href="javascript:;" th:onclick="|edit('编辑','update_seckill_goods',${goods.id},'1000','600')|"
+                <a title="编辑" href="javascript:;" th:onclick="|edit('编辑','update_order_info',${goods.id},'1000','600')|"
                    class="ml-5" style="text-decoration:none">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
@@ -144,35 +161,6 @@
         </tr>
         </tbody>
     </table>
-    <div class="row">
-        <div class="col-md-6">
-
-            当前第[[<span th:text="${pageInfo.pageNum}"></span>]]页，共[[<span th:text="${pageInfo.pages}"></span>]]页，共[[<span th:text="${pageInfo.total}"></span>]]条记录
-            <div class="x-nax"></div>
-        </div>
-    </div>
-    <!-- 分页导航条 -->
-    <div class="pagenation">
-        <a th:href="@{/admin/seckill_goods/}"><span class="btn-page btn-default">首页</span></a>
-        <a th:href="@{/admin/seckill_goods/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"><span
-                class="btn-page btn-default">上一页</span></a>
-        <!-- 遍历导航页 -->
-        <a th:each="page,pageStat:${pageInfo.navigatepageNums}"
-           th:href="@{/admin/seckill_goods/(pageNum=${page})}">
-                                        <span th:if="${page}==${pageInfo.pageNum}">
-                                            <span class="btn-page btn-active" th:text="${page}"></span>
-                                        </span>
-            <span th:if="${page}!=${pageInfo.pageNum}">
-                                            <span class="btn-page btn-default" th:text="${page}"></span>
-                                        </span>
-        </a>
-        <!-- 导航页 -->
-
-        <a th:href="@{/admin/seckill_goods/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"><span
-                class="btn-page btn-default">下一页</span></a>
-        <a th:href="@{/admin/seckill_goods/(pageNum=${pageInfo.pages})}"><span class="btn-page btn-default">尾页</span></a>
-    </div>
-
 </div>
 <script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
 <script th:src="@{/js/x-layui.js}" charset="utf-8"></script>
@@ -239,25 +227,6 @@
     }
     /*添加*/
     function admin_add(title,url,w,h){
-        url ="/admin/"+ url;
-        $.ajax({
-            type:"post",
-            url:"/admin/sec_good_adds",
-            data:{"id":1},
-            dataType:"json",
-            success:function(data)
-            {
-                if(data.status==1)
-                {
-                    window.location.href="/admin/sec_good_adds";
-                    return false;
-                }
-                else{
-                    layer.msg(data.info,{icon:5,time:2000});return false;
-                }
-            }
-
-        });
         x_admin_show(title,url,w,h);
     }
 
@@ -287,7 +256,7 @@
         url ="/admin/"+ url+"?id="+id;
         $.ajax({
             type:"post",
-            url:"/admin/update_seckill_goods",
+            url:"/admin/update_order_info",
             data:{"id":id},
             dataType:"json",
             success:function(data)
@@ -310,41 +279,40 @@
         layer.confirm('确认要删除吗？',{icon:3,title:'提示信息'},function(index){
             $.ajax({
                 type:"post",
-                url:"/admin/del_goods",
+                url:"/admin/del",
                 data:{id:id},
                 dataType:"json",
                 success:function(data){
-                    console.log(data);
-                    if(data==1){
+                    //console.log(data);
+                    if(data.status==1){
                         //发异步删除数据
                         $(obj).parents("tr").remove();
-                        layer.msg("已删除",{icon:1,time:2000});
+                        layer.msg(data.info,{icon:6,time:1000});
                         setTimeout(function(){
                             window.location.reload();
                         },1000);return false;
                     } else{
-                        layer.msg('删除失败!',{icon:5,time:2000});return false;
+                        layer.msg(data.info,{icon:5,time:1000});return false;
                     }
                 }
             });
+            //发异步删除数据
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
         });
     }
     /*搜索*/
     function search(){
-        var name= $("input[name='username']").val();
+        var user_id= $("input[name='user_id']").val();
         $.ajax({
             type:"post",
-            url:"/admin/sec_goods_search",
-            data:{name:name},
-            dataType:"html",
-            success:function(data){
-                //alert("success");
-                window.location.href="/admin/sec_goods_searchs?name="+name;
-            },
-            error:function (data) {
-                alert("fail"+data);
-            }
+            url:"/admin/order_search",
+            data:{user_id:user_id},
+            dataType:"html"
         });
+    }
+    function back_toList() {
+        window.location.href="/admin/order_details";
     }
 </script>
 
